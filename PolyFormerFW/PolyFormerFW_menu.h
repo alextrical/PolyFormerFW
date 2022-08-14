@@ -15,7 +15,6 @@
 #include <tcMenu.h>
 #include "tcMenuU8g2.h"
 #include <RuntimeMenuItem.h>
-#include <EditableLargeNumberMenuItem.h>
 #include <IoAbstraction.h>
 #include <ArduinoEEPROMAbstraction.h>
 
@@ -28,23 +27,28 @@ extern GraphicsDeviceRenderer renderer;
 
 
 // Global Menu Item exports
-extern AnalogMenuItem menuSettingsD;
-extern AnalogMenuItem menuSettingsI;
-extern AnalogMenuItem menuSettingsP;
-extern ActionMenuItem menuSettingsPIDTune;
 extern ActionMenuItem menuSettingsSaveSettings;
-extern AnalogMenuItem menuSettingsMotorCurrent;
+extern AnalogMenuItem menuSettingsTemperatureKd;
+extern AnalogMenuItem menuSettingsTemperatureKi;
+extern AnalogMenuItem menuSettingsTemperatureKp;
+extern ActionMenuItem menuSettingsTemperaturePIDTune;
+extern BackMenuItem menuBackSettingsTemperature;
+extern SubMenuItem menuSettingsTemperature;
+extern AnalogMenuItem menuSettingsPersonalisationSerialNumber;
+extern TextMenuItem menuSettingsPersonalisationUserName;
+extern BackMenuItem menuBackSettingsPersonalisation;
+extern SubMenuItem menuSettingsPersonalisation;
+extern AnalogMenuItem menuSettingsGearboxMotorCurrent;
 extern AnalogMenuItem menuSettingsMicrosteps;
 extern AnalogMenuItem menuSettingsSpoolRadius;
 extern AnalogMenuItem menuSettingsGearboxRatio;
 extern AnalogMenuItem menuSettingsMotorSteps;
-extern AnalogMenuItem menuSettingsSerialNumber2;
-extern EditableLargeNumberMenuItem menuSettingsSerialNumber;
-extern TextMenuItem menuSettingsUserName;
+extern BackMenuItem menuBackSettingsGearbox;
+extern SubMenuItem menuSettingsGearbox;
 extern BackMenuItem menuBackSettings;
 extern SubMenuItem menuSettings;
+extern FloatMenuItem menuActualTemp;
 extern AnalogMenuItem menuFan;
-extern AnalogMenuItem menuActualTemp;
 extern AnalogMenuItem menuTemperature;
 extern AnalogMenuItem menuFeed;
 extern ActionMenuItem menuStart;
@@ -56,6 +60,7 @@ void setupMenu();
 // Callback functions must always include CALLBACK_FUNCTION after the return type
 #define CALLBACK_FUNCTION
 
+void CALLBACK_FUNCTION onGearboxChange(int id);
 void CALLBACK_FUNCTION onNameChanged(int id);
 void CALLBACK_FUNCTION onPIDTune(int id);
 void CALLBACK_FUNCTION onSaveSettings(int id);

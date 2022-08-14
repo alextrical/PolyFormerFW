@@ -9,7 +9,7 @@
       "item": {
         "name": "Start",
         "variableName": "Start",
-        "id": 1,
+        "id": 4,
         "eepromAddress": -1,
         "functionName": "onStart",
         "readOnly": false,
@@ -21,15 +21,14 @@
       "parentId": 0,
       "type": "analogItem",
       "item": {
-        "maxValue": 149,
-        "offset": 1,
-        "divisor": 10,
+        "maxValue": 255,
+        "offset": 0,
+        "divisor": 1,
         "unitName": "mm s",
         "name": "Feed",
         "variableName": "Feed",
         "id": 2,
-        "eepromAddress": 2,
-        "functionName": "onGearboxChange",
+        "eepromAddress": -1,
         "readOnly": false,
         "localOnly": false,
         "visible": true
@@ -45,9 +44,26 @@
         "unitName": "C",
         "name": "Setpoint",
         "variableName": "Temperature",
-        "id": 3,
-        "eepromAddress": 4,
+        "id": 1,
+        "eepromAddress": -1,
         "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "analogItem",
+      "item": {
+        "maxValue": 300,
+        "offset": 0,
+        "divisor": 1,
+        "unitName": "C",
+        "name": "Actual Temp",
+        "variableName": "ActualTemp",
+        "id": 17,
+        "eepromAddress": -1,
+        "readOnly": true,
         "localOnly": false,
         "visible": true
       }
@@ -62,23 +78,9 @@
         "unitName": "%",
         "name": "Fan",
         "variableName": "Fan",
-        "id": 5,
-        "eepromAddress": 6,
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true
-      }
-    },
-    {
-      "parentId": 0,
-      "type": "floatItem",
-      "item": {
-        "numDecimalPlaces": 2,
-        "name": "Actual Temp",
-        "variableName": "ActualTemp",
-        "id": 24,
+        "id": 10,
         "eepromAddress": -1,
-        "readOnly": true,
+        "readOnly": false,
         "localOnly": false,
         "visible": true
       }
@@ -90,7 +92,7 @@
         "secured": false,
         "name": "Settings",
         "variableName": "",
-        "id": 6,
+        "id": 5,
         "eepromAddress": -1,
         "readOnly": false,
         "localOnly": false,
@@ -98,13 +100,46 @@
       }
     },
     {
-      "parentId": 6,
+      "parentId": 5,
+      "type": "largeNumItem",
+      "item": {
+        "digitsAllowed": 4,
+        "decimalPlaces": 0,
+        "negativeAllowed": false,
+        "name": "Serial Number",
+        "variableName": "SettingsSerialNumber",
+        "id": 8,
+        "eepromAddress": -1,
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 5,
+      "type": "analogItem",
+      "item": {
+        "maxValue": 999,
+        "offset": 0,
+        "divisor": 1,
+        "unitName": "",
+        "name": "Serial Number2",
+        "variableName": "SettingsSerialNumber2",
+        "id": 11,
+        "eepromAddress": -1,
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 5,
       "type": "subMenu",
       "item": {
         "secured": false,
         "name": "Gearbox",
         "variableName": "SettingsGearbox",
-        "id": 9,
+        "id": 22,
         "eepromAddress": -1,
         "readOnly": false,
         "localOnly": false,
@@ -112,7 +147,7 @@
       }
     },
     {
-      "parentId": 9,
+      "parentId": 22,
       "type": "analogItem",
       "item": {
         "maxValue": 396,
@@ -121,16 +156,15 @@
         "unitName": "Step",
         "name": "MotorSteps",
         "variableName": "SettingsMotorSteps",
-        "id": 10,
-        "eepromAddress": 8,
-        "functionName": "onGearboxChange",
+        "id": 23,
+        "eepromAddress": -1,
         "readOnly": false,
         "localOnly": false,
         "visible": true
       }
     },
     {
-      "parentId": 9,
+      "parentId": 22,
       "type": "analogItem",
       "item": {
         "maxValue": 99,
@@ -139,16 +173,15 @@
         "unitName": "to1",
         "name": "GearboxRatio",
         "variableName": "SettingsGearboxRatio",
-        "id": 11,
-        "eepromAddress": 10,
-        "functionName": "onGearboxChange",
+        "id": 24,
+        "eepromAddress": -1,
         "readOnly": false,
         "localOnly": false,
         "visible": true
       }
     },
     {
-      "parentId": 9,
+      "parentId": 22,
       "type": "analogItem",
       "item": {
         "maxValue": 450,
@@ -157,16 +190,15 @@
         "unitName": "mm",
         "name": "SpoolRadius",
         "variableName": "SettingsSpoolRadius",
-        "id": 12,
-        "eepromAddress": 12,
-        "functionName": "onGearboxChange",
+        "id": 25,
+        "eepromAddress": -1,
         "readOnly": false,
         "localOnly": false,
         "visible": true
       }
     },
     {
-      "parentId": 9,
+      "parentId": 22,
       "type": "analogItem",
       "item": {
         "maxValue": 63,
@@ -175,16 +207,15 @@
         "unitName": "Step",
         "name": "Microsteps",
         "variableName": "SettingsMicrosteps",
-        "id": 13,
-        "eepromAddress": 14,
-        "functionName": "onGearboxChange",
+        "id": 26,
+        "eepromAddress": -1,
         "readOnly": false,
         "localOnly": false,
         "visible": true
       }
     },
     {
-      "parentId": 9,
+      "parentId": 22,
       "type": "analogItem",
       "item": {
         "maxValue": 1500,
@@ -193,21 +224,7 @@
         "unitName": "mA",
         "name": "MotorCurrent",
         "variableName": "SettingsGearboxMotorCurrent",
-        "id": 14,
-        "eepromAddress": 16,
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true
-      }
-    },
-    {
-      "parentId": 6,
-      "type": "subMenu",
-      "item": {
-        "secured": false,
-        "name": "Personalisation",
-        "variableName": "SettingsPersonalisation",
-        "id": 21,
+        "id": 27,
         "eepromAddress": -1,
         "readOnly": false,
         "localOnly": false,
@@ -215,46 +232,13 @@
       }
     },
     {
-      "parentId": 21,
-      "type": "textItem",
-      "item": {
-        "textLength": 10,
-        "itemType": "PLAIN_TEXT",
-        "name": "User Name",
-        "variableName": "SettingsPersonalisationUserName",
-        "id": 22,
-        "eepromAddress": 18,
-        "functionName": "onNameChanged",
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true
-      }
-    },
-    {
-      "parentId": 21,
-      "type": "analogItem",
-      "item": {
-        "maxValue": 999,
-        "offset": 0,
-        "divisor": 1,
-        "unitName": "",
-        "name": "Serial Number",
-        "variableName": "SettingsPersonalisationSerialNumber",
-        "id": 23,
-        "eepromAddress": 28,
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true
-      }
-    },
-    {
-      "parentId": 6,
+      "parentId": 5,
       "type": "subMenu",
       "item": {
         "secured": false,
         "name": "Temperature",
         "variableName": "SettingsTemperature",
-        "id": 15,
+        "id": 28,
         "eepromAddress": -1,
         "readOnly": false,
         "localOnly": false,
@@ -262,12 +246,12 @@
       }
     },
     {
-      "parentId": 15,
+      "parentId": 28,
       "type": "actionMenu",
       "item": {
         "name": "PIDTune",
         "variableName": "SettingsTemperaturePIDTune",
-        "id": 16,
+        "id": 29,
         "eepromAddress": -1,
         "functionName": "onPIDTune",
         "readOnly": false,
@@ -276,7 +260,7 @@
       }
     },
     {
-      "parentId": 15,
+      "parentId": 28,
       "type": "analogItem",
       "item": {
         "maxValue": 10000,
@@ -285,15 +269,15 @@
         "unitName": "P",
         "name": "Kp",
         "variableName": "SettingsTemperatureKp",
-        "id": 17,
-        "eepromAddress": 30,
+        "id": 30,
+        "eepromAddress": -1,
         "readOnly": false,
         "localOnly": false,
         "visible": true
       }
     },
     {
-      "parentId": 15,
+      "parentId": 28,
       "type": "analogItem",
       "item": {
         "maxValue": 10000,
@@ -302,15 +286,15 @@
         "unitName": "I",
         "name": "Ki",
         "variableName": "SettingsTemperatureKi",
-        "id": 18,
-        "eepromAddress": 32,
+        "id": 31,
+        "eepromAddress": -1,
         "readOnly": false,
         "localOnly": false,
         "visible": true
       }
     },
     {
-      "parentId": 15,
+      "parentId": 28,
       "type": "analogItem",
       "item": {
         "maxValue": 10000,
@@ -319,22 +303,69 @@
         "unitName": "D",
         "name": "Kd",
         "variableName": "SettingsTemperatureKd",
-        "id": 19,
-        "eepromAddress": 34,
+        "id": 32,
+        "eepromAddress": -1,
         "readOnly": false,
         "localOnly": false,
         "visible": true
       }
     },
     {
-      "parentId": 6,
+      "parentId": 5,
       "type": "actionMenu",
       "item": {
         "name": "SaveSettings",
         "variableName": "SettingsSaveSettings",
-        "id": 20,
+        "id": 9,
         "eepromAddress": -1,
         "functionName": "onSaveSettings",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 5,
+      "type": "subMenu",
+      "item": {
+        "secured": false,
+        "name": "Personalisation",
+        "variableName": "SettingsPersonalisation",
+        "id": 33,
+        "eepromAddress": -1,
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 33,
+      "type": "textItem",
+      "item": {
+        "textLength": 10,
+        "itemType": "PLAIN_TEXT",
+        "name": "User Name",
+        "variableName": "SettingsPersonalisationUserName",
+        "id": 34,
+        "eepromAddress": -1,
+        "functionName": "onNameChanged",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 33,
+      "type": "analogItem",
+      "item": {
+        "maxValue": 999,
+        "offset": 0,
+        "divisor": 1,
+        "unitName": "",
+        "name": "Serial Number",
+        "variableName": "SettingsPersonalisationSerialNumber",
+        "id": 35,
+        "eepromAddress": -1,
         "readOnly": false,
         "localOnly": false,
         "visible": true
@@ -351,7 +382,7 @@
     ],
     "lastThemeUuid": "815316bb-76c9-436a-8f83-be0bced963df",
     "applicationUUID": "fddaa423-cb5c-4024-8f67-a9742f4457f3",
-    "applicationName": "PolyFormer",
+    "applicationName": "  PolyFormer",
     "lastProperties": [
       {
         "name": "DISPLAY_VARIABLE",

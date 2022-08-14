@@ -1,12 +1,42 @@
 #include "PolyFormerFW_menu.h"
 const char pgmCommittedToRom[] PROGMEM = "Saved to ROM";
 
+//Hardware Variables
+#define baudrate        9600
+#define REFERENCE_RESISTANCE   4700
+#define NOMINAL_RESISTANCE     100000
+#define NOMINAL_TEMPERATURE    25
+#define B_VALUE                3950
+
+//System Variables
+int error = 0; //Start with a clean sheet and no error /* 0=no error; 1=Heater decoupled during rising; 2=Heater decoupled during hold; 10=Over Temp; 11=Thermistor short; 12=No thermistor */
+bool runSystem = false;
+
+//int stepperSpeed = ((stepperMicrosteps * motorStepsPerRevolution * gearboxRatio) / gearboxRadius) * spoolSpeed; //Steps per second. The fastest motor speed that can be reliably supported is about 4000 steps per second at a clock frequency of 16 MHz on Arduino such as Uno etc. Faster processors can support faster stepping speeds.
+int stepperSpeed = 0;
+
+//BlackPill
+#define SDAPin          PB9
+#define SCLPin          PB8
+#define stepperStepPin  PB0
+#define stepperDirPin   PB7
+#define stepperEnPin    PB5
+#define Thermistor1Pin  PA2
+#define meltzoneFanPin  PA6
+
+
+////EBB42 v1.1
+//#define SDAPin          PB4
+//#define SCLPin          PB3
+//#define stepperStepPin  PD0
+//#define stepperDirPin   PD1
+//#define stepperEnPin    PD2
+
+
 void setup() {
   // If you use i2c and serial devices, be sure to start wire / serial.
- Wire.setSDA(PB9); //BlackPill
- Wire.setSCL(PB8); //BlackPill
-  // Wire.setSDA(PB9);
-  // Wire.setSCL(PB8);
+ Wire.setSDA(SDAPin); //BlackPill
+ Wire.setSCL(SCLPin); //BlackPill
   Wire.begin();
 
   // here we initialise the EEPROM class to 512 bytes of storage
@@ -18,12 +48,17 @@ void setup() {
 
   // lastly we load state from EEPROM.
   menuMgr.load();
+  serialSetup();
+  stepperSetup();
+  fanSetup();
 
 }
 
 void loop() {
   taskManager.runLoop();
-
+SerialLoop();
+stepperLoop();
+fanLoop();
 }
 
 
@@ -47,6 +82,24 @@ void CALLBACK_FUNCTION onPIDTune(int id) {
 
 void CALLBACK_FUNCTION onStart(int id) {
   // TODO - your menu change code
+  //digitalWrite(stepperEnPin, LOW); //Low enables the stepper
+  runSystem = !runSystem;
+}
+
+void CALLBACK_FUNCTION onGearboxChange(int id) {
+  // TODO - your menu change code
+  Serial.print("MotorSteps");
+    Serial.println(menuSettingsMotorSteps.getAsFloatingPointValue());
+  Serial.print("GearboxRatio");
+  Serial.println(menuSettingsGearboxRatio.getAsFloatingPointValue());
+  Serial.print("SpoolRadius");
+  Serial.println(menuSettingsSpoolRadius.getAsFloatingPointValue());
+  Serial.print("Microsteps");
+  Serial.println(menuSettingsMicrosteps.getAsFloatingPointValue());
+  //stepperSpeed = menuSettingsMotorSteps.getAsFloatingPointValue()*menuFeed.getAsFloatingPointValue()*menuSettingsGearboxRatio.getAsFloatingPointValue()*menuSettingsMicrosteps.getAsFloatingPointValue();
+  Serial.print("stepperSpeed");
+  Serial.println(stepperSpeed);
+  stepperSetup();
 }
 
 

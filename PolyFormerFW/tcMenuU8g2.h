@@ -5,11 +5,11 @@
 
 /**
  * @file tcMenuU8g2.h
- *
+ * 
  * U8g2 renderer that renders menus onto this type of display. This file is a plugin file and should not
  * be directly edited, it will be replaced each time the project is built. If you want to edit this file in place,
  * make sure to rename it first.
- *
+ * 
  * LIBRARY REQUIREMENT
  * This library requires the u8g2 library available for download from your IDE library manager.
  */
@@ -29,7 +29,7 @@
 
 // If you DONT want task manager yield code in I2C set to 0
 #ifndef WANT_TASK_MANAGER_FRIENDLY_YIELD
-  #define WANT_TASK_MANAGER_FRIENDLY_YIELD 1
+#define WANT_TASK_MANAGER_FRIENDLY_YIELD 1
 #endif // WANT_TASK_MANAGER_FRIENDLY_YIELD
 
 using namespace tcgfx;
@@ -38,16 +38,16 @@ using namespace tcgfx;
  * A standard menu render configuration that describes how to renderer each item and the title.
  * Specialised for u8g2 fonts.
  */
-typedef struct ColorGfxMenuConfig<const uint8_t *> U8g2GfxMenuConfig;
+typedef struct ColorGfxMenuConfig<const uint8_t*> U8g2GfxMenuConfig;
 
 // some colour displays don't create this value
 #ifndef BLACK
-  #define BLACK 0
+#define BLACK 0
 #endif
 
 // some colour displays don't create this value
 #ifndef WHITE
-  #define WHITE 1
+#define WHITE 1
 #endif
 
 /**
@@ -68,20 +68,17 @@ uint8_t u8g2_byte_with_yield(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *a
  * designer UI takes care of this.
  */
 class U8g2Drawable : public DeviceDrawable {
-  private:
-    U8G2 *u8g2;
+private:
+	U8G2* u8g2;
 #if WANT_TASK_MANAGER_FRIENDLY_YIELD == 1
-    static TwoWire *pWire;
+    static TwoWire* pWire;
     friend uint8_t u8g2_byte_with_yield(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr);
 #endif // WANT_TASK_MANAGER_FRIENDLY_YIELD
-  public:
-    explicit U8g2Drawable(U8G2 *u8g2, TwoWire *wire = nullptr);
+public:
+    explicit U8g2Drawable(U8G2* u8g2, TwoWire* wire = nullptr);
     ~U8g2Drawable() override = default;
 
-    DeviceDrawable *getSubDeviceFor(const Coord &where, const Coord &size, const color_t *palette, int paletteSize) override
-    {
-      return nullptr;
-    }
+    DeviceDrawable* getSubDeviceFor(const Coord &where, const Coord &size, const color_t *palette, int paletteSize) override {return nullptr; }
 
     void drawText(const Coord &where, const void *font, int mag, const char *text) override;
     void drawBitmap(const Coord &where, const DrawableIcon *icon, bool selected) override;
@@ -90,16 +87,10 @@ class U8g2Drawable : public DeviceDrawable {
     void drawCircle(const Coord &where, int radius, bool filled) override;
     void drawPolygon(const Coord *points, int numPoints, bool filled) override;
 
-    Coord getDisplayDimensions() override
-    {
-      return Coord(u8g2->getWidth(), u8g2->getHeight());
-    }
+    Coord getDisplayDimensions() override {  return Coord(u8g2->getWidth(), u8g2->getHeight()); }
     void transaction(bool isStarting, bool redrawNeeded) override;
     Coord textExtents(const void *font, int mag, const char *text, int *baseline) override;
-    color_t getUnderlyingColor(color_t col)
-    {
-      return (col < 4) ? col : 1;
-    }
+    color_t getUnderlyingColor(color_t col) { return (col<4) ? col : 1; }
 
 };
 
