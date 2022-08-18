@@ -1,5 +1,6 @@
 #include "PolyFormerFW_menu.h"
 const char pgmCommittedToRom[] PROGMEM = "Saved to ROM";
+const char pgmTuning[] PROGMEM = "PID Tuning";
 
 //Hardware Variables
 #define baudrate        9600
@@ -22,6 +23,7 @@ int stepperSpeed = 0;
 #define stepperDirPin   PB7
 #define stepperEnPin    PB5
 #define Thermistor1Pin  PA2
+#define Heater1Pin      PA7
 #define meltzoneFanPin  PA6
 
 
@@ -35,13 +37,13 @@ int stepperSpeed = 0;
 
 void setup() {
   // If you use i2c and serial devices, be sure to start wire / serial.
- Wire.setSDA(SDAPin); //BlackPill
- Wire.setSCL(SCLPin); //BlackPill
+  Wire.setSDA(SDAPin); //BlackPill
+  Wire.setSCL(SCLPin); //BlackPill
   Wire.begin();
 
   // here we initialise the EEPROM class to 512 bytes of storage
   // don't commit often to this, it's in FLASH
-//  EEPROM.begin(512);
+  //  EEPROM.begin(512);
 
   // This is added by tcMenu Designer automatically during the first setup.
   setupMenu();
@@ -51,14 +53,15 @@ void setup() {
   serialSetup();
   stepperSetup();
   fanSetup();
-
+  pidSetup();
 }
 
 void loop() {
   taskManager.runLoop();
-SerialLoop();
-stepperLoop();
-fanLoop();
+  SerialLoop();
+  stepperLoop();
+  fanLoop();
+  pidLoop();
 }
 
 
@@ -69,7 +72,7 @@ void CALLBACK_FUNCTION onSaveSettings(int id) {
   // here is a brief example of how to show a dialog, usually for information
   // or yes/no answers.
   auto* dlg = renderer.getDialog();
-  if(dlg && !dlg->isInUse()) {
+  if (dlg && !dlg->isInUse()) {
     dlg->setButtons(BTNTYPE_NONE, BTNTYPE_OK);
     dlg->show(pgmCommittedToRom, false);
     dlg->copyIntoBuffer("just so you know");
@@ -78,28 +81,40 @@ void CALLBACK_FUNCTION onSaveSettings(int id) {
 
 void CALLBACK_FUNCTION onPIDTune(int id) {
   // TODO - your menu change code
+//  pidTune();
+}
+
+void CALLBACK_FUNCTION onPIDChange(int id) {
+  //apply PID gains
+  pidChange();
 }
 
 void CALLBACK_FUNCTION onStart(int id) {
   // TODO - your menu change code
   //digitalWrite(stepperEnPin, LOW); //Low enables the stepper
   runSystem = !runSystem;
+
+  if(runSystem){
+  Serial.println("Run");
+  }else{
+  Serial.println("Stop");
+  }
 }
 
 void CALLBACK_FUNCTION onGearboxChange(int id) {
   // TODO - your menu change code
   Serial.print("MotorSteps");
-    Serial.println(menuSettingsMotorSteps.getAsFloatingPointValue());
+  Serial.println(menuMotorSteps.getAsFloatingPointValue());
   Serial.print("GearboxRatio");
-  Serial.println(menuSettingsGearboxRatio.getAsFloatingPointValue());
+  Serial.println(menuGearboxRatio.getAsFloatingPointValue());
   Serial.print("SpoolRadius");
-  Serial.println(menuSettingsSpoolRadius.getAsFloatingPointValue());
+  Serial.println(menuSpoolRadius.getAsFloatingPointValue());
   Serial.print("Microsteps");
-  Serial.println(menuSettingsMicrosteps.getAsFloatingPointValue());
-  //stepperSpeed = menuSettingsMotorSteps.getAsFloatingPointValue()*menuFeed.getAsFloatingPointValue()*menuSettingsGearboxRatio.getAsFloatingPointValue()*menuSettingsMicrosteps.getAsFloatingPointValue();
+  Serial.println(menuMicrosteps.getAsFloatingPointValue());
+  stepperSpeed = menuMotorSteps.getAsFloatingPointValue()*menuFeed.getAsFloatingPointValue()*menuGearboxRatio.getAsFloatingPointValue()*menuMicrosteps.getAsFloatingPointValue();
   Serial.print("stepperSpeed");
   Serial.println(stepperSpeed);
-  stepperSetup();
+  pwm_stepperStepPin(stepperSpeed);
 }
 
 

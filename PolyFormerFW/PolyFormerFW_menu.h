@@ -28,29 +28,29 @@ extern GraphicsDeviceRenderer renderer;
 
 // Global Menu Item exports
 extern ActionMenuItem menuSettingsSaveSettings;
-extern AnalogMenuItem menuSettingsTemperatureKd;
-extern AnalogMenuItem menuSettingsTemperatureKi;
-extern AnalogMenuItem menuSettingsTemperatureKp;
-extern ActionMenuItem menuSettingsTemperaturePIDTune;
+extern AnalogMenuItem menuKd;
+extern AnalogMenuItem menuKi;
+extern AnalogMenuItem menuKp;
+extern ActionMenuItem menuPIDTune;
 extern BackMenuItem menuBackSettingsTemperature;
 extern SubMenuItem menuSettingsTemperature;
-extern AnalogMenuItem menuSettingsPersonalisationSerialNumber;
-extern TextMenuItem menuSettingsPersonalisationUserName;
+extern AnalogMenuItem menuSerialNumber;
+extern TextMenuItem menuUserName;
 extern BackMenuItem menuBackSettingsPersonalisation;
 extern SubMenuItem menuSettingsPersonalisation;
-extern AnalogMenuItem menuSettingsGearboxMotorCurrent;
-extern AnalogMenuItem menuSettingsMicrosteps;
-extern AnalogMenuItem menuSettingsSpoolRadius;
-extern AnalogMenuItem menuSettingsGearboxRatio;
-extern AnalogMenuItem menuSettingsMotorSteps;
+extern AnalogMenuItem menuMotorCurrent;
+extern AnalogMenuItem menuMicrosteps;
+extern AnalogMenuItem menuSpoolRadius;
+extern AnalogMenuItem menuGearboxRatio;
+extern AnalogMenuItem menuMotorSteps;
 extern BackMenuItem menuBackSettingsGearbox;
 extern SubMenuItem menuSettingsGearbox;
 extern BackMenuItem menuBackSettings;
 extern SubMenuItem menuSettings;
-extern FloatMenuItem menuActualTemp;
+extern AnalogMenuItem menuFeed;
 extern AnalogMenuItem menuFan;
 extern AnalogMenuItem menuTemperature;
-extern AnalogMenuItem menuFeed;
+extern FloatMenuItem menuActualTemp;
 extern ActionMenuItem menuStart;
 
 // Provide a wrapper to get hold of the root menu item and export setupMenu
@@ -62,6 +62,7 @@ void setupMenu();
 
 void CALLBACK_FUNCTION onGearboxChange(int id);
 void CALLBACK_FUNCTION onNameChanged(int id);
+void CALLBACK_FUNCTION onPIDChange(int id);
 void CALLBACK_FUNCTION onPIDTune(int id);
 void CALLBACK_FUNCTION onSaveSettings(int id);
 void CALLBACK_FUNCTION onStart(int id);

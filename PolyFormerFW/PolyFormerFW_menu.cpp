@@ -22,54 +22,54 @@ GraphicsDeviceRenderer renderer(30, applicationInfo.name, &gfxDrawable);
 // Global Menu Item declarations
 const AnyMenuInfo minfoSettingsSaveSettings = { "SaveSettings", 20, 0xffff, 0, onSaveSettings };
 ActionMenuItem menuSettingsSaveSettings(&minfoSettingsSaveSettings, NULL);
-const AnalogMenuInfo minfoSettingsTemperatureKd = { "Kd", 19, 34, 10000, NO_CALLBACK, 0, 100, "D" };
-AnalogMenuItem menuSettingsTemperatureKd(&minfoSettingsTemperatureKd, 0, NULL);
-const AnalogMenuInfo minfoSettingsTemperatureKi = { "Ki", 18, 32, 10000, NO_CALLBACK, 0, 100, "I" };
-AnalogMenuItem menuSettingsTemperatureKi(&minfoSettingsTemperatureKi, 0, &menuSettingsTemperatureKd);
-const AnalogMenuInfo minfoSettingsTemperatureKp = { "Kp", 17, 30, 10000, NO_CALLBACK, 0, 100, "P" };
-AnalogMenuItem menuSettingsTemperatureKp(&minfoSettingsTemperatureKp, 0, &menuSettingsTemperatureKi);
-const AnyMenuInfo minfoSettingsTemperaturePIDTune = { "PIDTune", 16, 0xffff, 0, onPIDTune };
-ActionMenuItem menuSettingsTemperaturePIDTune(&minfoSettingsTemperaturePIDTune, &menuSettingsTemperatureKp);
+const AnalogMenuInfo minfoKd = { "Kd", 19, 34, 65535, onPIDChange, 0, 10, "" };
+AnalogMenuItem menuKd(&minfoKd, 0, NULL);
+const AnalogMenuInfo minfoKi = { "Ki", 18, 32, 65535, onPIDChange, 0, 10, "" };
+AnalogMenuItem menuKi(&minfoKi, 0, &menuKd);
+const AnalogMenuInfo minfoKp = { "Kp", 17, 30, 65535, onPIDChange, 0, 10, "" };
+AnalogMenuItem menuKp(&minfoKp, 0, &menuKi);
+const AnyMenuInfo minfoPIDTune = { "PIDTune", 16, 0xffff, 0, onPIDTune };
+ActionMenuItem menuPIDTune(&minfoPIDTune, &menuKp);
 RENDERING_CALLBACK_NAME_INVOKE(fnSettingsTemperatureRtCall, backSubItemRenderFn, "Temperature", -1, NO_CALLBACK)
 const SubMenuInfo minfoSettingsTemperature = { "Temperature", 15, 0xffff, 0, NO_CALLBACK };
-BackMenuItem menuBackSettingsTemperature(fnSettingsTemperatureRtCall, &menuSettingsTemperaturePIDTune);
+BackMenuItem menuBackSettingsTemperature(fnSettingsTemperatureRtCall, &menuPIDTune);
 SubMenuItem menuSettingsTemperature(&minfoSettingsTemperature, &menuBackSettingsTemperature, &menuSettingsSaveSettings);
-const AnalogMenuInfo minfoSettingsPersonalisationSerialNumber = { "Serial Number", 23, 28, 999, NO_CALLBACK, 0, 1, "" };
-AnalogMenuItem menuSettingsPersonalisationSerialNumber(&minfoSettingsPersonalisationSerialNumber, 0, NULL);
-RENDERING_CALLBACK_NAME_INVOKE(fnSettingsPersonalisationUserNameRtCall, textItemRenderFn, "User Name", 18, onNameChanged)
-TextMenuItem menuSettingsPersonalisationUserName(fnSettingsPersonalisationUserNameRtCall, 22, 10, &menuSettingsPersonalisationSerialNumber);
+const AnalogMenuInfo minfoSerialNumber = { "Serial Number", 23, 28, 999, NO_CALLBACK, 0, 1, "" };
+AnalogMenuItem menuSerialNumber(&minfoSerialNumber, 0, NULL);
+RENDERING_CALLBACK_NAME_INVOKE(fnUserNameRtCall, textItemRenderFn, "User Name", 18, onNameChanged)
+TextMenuItem menuUserName(fnUserNameRtCall, 22, 10, &menuSerialNumber);
 RENDERING_CALLBACK_NAME_INVOKE(fnSettingsPersonalisationRtCall, backSubItemRenderFn, "Personalisation", -1, NO_CALLBACK)
 const SubMenuInfo minfoSettingsPersonalisation = { "Personalisation", 21, 0xffff, 0, NO_CALLBACK };
-BackMenuItem menuBackSettingsPersonalisation(fnSettingsPersonalisationRtCall, &menuSettingsPersonalisationUserName);
+BackMenuItem menuBackSettingsPersonalisation(fnSettingsPersonalisationRtCall, &menuUserName);
 SubMenuItem menuSettingsPersonalisation(&minfoSettingsPersonalisation, &menuBackSettingsPersonalisation, &menuSettingsTemperature);
-const AnalogMenuInfo minfoSettingsGearboxMotorCurrent = { "MotorCurrent", 14, 16, 1500, NO_CALLBACK, 500, 1, "mA" };
-AnalogMenuItem menuSettingsGearboxMotorCurrent(&minfoSettingsGearboxMotorCurrent, 0, NULL);
-const AnalogMenuInfo minfoSettingsMicrosteps = { "Microsteps", 13, 14, 63, onGearboxChange, 1, 1, "Step" };
-AnalogMenuItem menuSettingsMicrosteps(&minfoSettingsMicrosteps, 0, &menuSettingsGearboxMotorCurrent);
-const AnalogMenuInfo minfoSettingsSpoolRadius = { "SpoolRadius", 12, 12, 450, onGearboxChange, 50, 1, "mm" };
-AnalogMenuItem menuSettingsSpoolRadius(&minfoSettingsSpoolRadius, 0, &menuSettingsMicrosteps);
-const AnalogMenuInfo minfoSettingsGearboxRatio = { "GearboxRatio", 11, 10, 99, onGearboxChange, 1, 1, "to1" };
-AnalogMenuItem menuSettingsGearboxRatio(&minfoSettingsGearboxRatio, 0, &menuSettingsSpoolRadius);
-const AnalogMenuInfo minfoSettingsMotorSteps = { "MotorSteps", 10, 8, 396, onGearboxChange, 4, 1, "Step" };
-AnalogMenuItem menuSettingsMotorSteps(&minfoSettingsMotorSteps, 0, &menuSettingsGearboxRatio);
+const AnalogMenuInfo minfoMotorCurrent = { "MotorCurrent", 14, 16, 1500, NO_CALLBACK, 500, 1, "mA" };
+AnalogMenuItem menuMotorCurrent(&minfoMotorCurrent, 0, NULL);
+const AnalogMenuInfo minfoMicrosteps = { "Microsteps", 13, 14, 63, onGearboxChange, 1, 1, "" };
+AnalogMenuItem menuMicrosteps(&minfoMicrosteps, 0, &menuMotorCurrent);
+const AnalogMenuInfo minfoSpoolRadius = { "SpoolRadius", 12, 12, 450, onGearboxChange, 50, 1, "mm" };
+AnalogMenuItem menuSpoolRadius(&minfoSpoolRadius, 0, &menuMicrosteps);
+const AnalogMenuInfo minfoGearboxRatio = { "GearboxRatio", 11, 10, 99, onGearboxChange, 1, 1, "to1" };
+AnalogMenuItem menuGearboxRatio(&minfoGearboxRatio, 0, &menuSpoolRadius);
+const AnalogMenuInfo minfoMotorSteps = { "MotorSteps", 10, 8, 396, onGearboxChange, 4, 1, "" };
+AnalogMenuItem menuMotorSteps(&minfoMotorSteps, 0, &menuGearboxRatio);
 RENDERING_CALLBACK_NAME_INVOKE(fnSettingsGearboxRtCall, backSubItemRenderFn, "Gearbox", -1, NO_CALLBACK)
 const SubMenuInfo minfoSettingsGearbox = { "Gearbox", 9, 0xffff, 0, NO_CALLBACK };
-BackMenuItem menuBackSettingsGearbox(fnSettingsGearboxRtCall, &menuSettingsMotorSteps);
+BackMenuItem menuBackSettingsGearbox(fnSettingsGearboxRtCall, &menuMotorSteps);
 SubMenuItem menuSettingsGearbox(&minfoSettingsGearbox, &menuBackSettingsGearbox, &menuSettingsPersonalisation);
 RENDERING_CALLBACK_NAME_INVOKE(fnSettingsRtCall, backSubItemRenderFn, "Settings", -1, NO_CALLBACK)
 const SubMenuInfo minfoSettings = { "Settings", 6, 0xffff, 0, NO_CALLBACK };
 BackMenuItem menuBackSettings(fnSettingsRtCall, &menuSettingsGearbox);
 SubMenuItem menuSettings(&minfoSettings, &menuBackSettings, NULL);
-const FloatMenuInfo minfoActualTemp = { "Actual Temp", 24, 0xffff, 2, NO_CALLBACK };
-FloatMenuItem menuActualTemp(&minfoActualTemp, &menuSettings);
+const AnalogMenuInfo minfoFeed = { "Feed", 2, 2, 149, onGearboxChange, 1, 10, "mm s" };
+AnalogMenuItem menuFeed(&minfoFeed, 0, &menuSettings);
 const AnalogMenuInfo minfoFan = { "Fan", 5, 6, 100, NO_CALLBACK, 0, 1, "%" };
-AnalogMenuItem menuFan(&minfoFan, 0, &menuActualTemp);
+AnalogMenuItem menuFan(&minfoFan, 0, &menuFeed);
 const AnalogMenuInfo minfoTemperature = { "Setpoint", 3, 4, 150, NO_CALLBACK, 100, 1, "C" };
 AnalogMenuItem menuTemperature(&minfoTemperature, 0, &menuFan);
-const AnalogMenuInfo minfoFeed = { "Feed", 2, 2, 149, onGearboxChange, 1, 10, "mm s" };
-AnalogMenuItem menuFeed(&minfoFeed, 0, &menuTemperature);
+const FloatMenuInfo minfoActualTemp = { "Actual Temp", 24, 0xffff, 2, NO_CALLBACK };
+FloatMenuItem menuActualTemp(&minfoActualTemp, &menuTemperature);
 const AnyMenuInfo minfoStart = { "Start", 1, 0xffff, 0, onStart };
-ActionMenuItem menuStart(&minfoStart, &menuFeed);
+ActionMenuItem menuStart(&minfoStart, &menuActualTemp);
 
 void setupMenu() {
     // First we set up eeprom and authentication (if needed).
