@@ -38,8 +38,8 @@ extern AnalogMenuItem menuSettingsPersonalisationSerialNumber;
 extern TextMenuItem menuSettingsPersonalisationUserName;
 extern BackMenuItem menuBackSettingsPersonalisation;
 extern SubMenuItem menuSettingsPersonalisation;
+extern EnumMenuItem menuSettingsGearboxMicrosteps;
 extern AnalogMenuItem menuSettingsGearboxMotorCurrent;
-extern AnalogMenuItem menuSettingsMicrosteps;
 extern AnalogMenuItem menuSettingsSpoolRadius;
 extern AnalogMenuItem menuSettingsGearboxRatio;
 extern AnalogMenuItem menuSettingsMotorSteps;
@@ -47,10 +47,10 @@ extern BackMenuItem menuBackSettingsGearbox;
 extern SubMenuItem menuSettingsGearbox;
 extern BackMenuItem menuBackSettings;
 extern SubMenuItem menuSettings;
-extern FloatMenuItem menuActualTemp;
 extern AnalogMenuItem menuFan;
 extern AnalogMenuItem menuTemperature;
 extern AnalogMenuItem menuFeed;
+extern FloatMenuItem menuActualTemp;
 extern ActionMenuItem menuStart;
 
 // Provide a wrapper to get hold of the root menu item and export setupMenu
@@ -61,6 +61,7 @@ void setupMenu();
 #define CALLBACK_FUNCTION
 
 void CALLBACK_FUNCTION onGearboxChange(int id);
+void CALLBACK_FUNCTION onMotorCurrent(int id);
 void CALLBACK_FUNCTION onNameChanged(int id);
 void CALLBACK_FUNCTION onPIDTune(int id);
 void CALLBACK_FUNCTION onSaveSettings(int id);

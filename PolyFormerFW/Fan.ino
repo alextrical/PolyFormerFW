@@ -1,5 +1,5 @@
 #include <GyverNTC.h>
-GyverNTC therm(Thermistor1Pin, NOMINAL_RESISTANCE, B_VALUE, NOMINAL_TEMPERATURE, REFERENCE_RESISTANCE);  // pin, R thermistor, B thermistor, base temperature, R resistor
+GyverNTC therm(thermistorPin, NOMINAL_RESISTANCE, B_VALUE, NOMINAL_TEMPERATURE, REFERENCE_RESISTANCE);  // pin, R thermistor, B thermistor, base temperature, R resistor
 
 
 bool fan1 = false; //Keep track of the fan state

@@ -1,7 +1,7 @@
 {
   "version": "1.00",
   "projectName": "Menu system for PolyFormer",
-  "author": "benja",
+  "author": "alextrical",
   "items": [
     {
       "parentId": 0,
@@ -13,6 +13,20 @@
         "eepromAddress": -1,
         "functionName": "onStart",
         "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "floatItem",
+      "item": {
+        "numDecimalPlaces": 2,
+        "name": "Actual Temp",
+        "variableName": "ActualTemp",
+        "id": 24,
+        "eepromAddress": -1,
+        "readOnly": true,
         "localOnly": false,
         "visible": true
       }
@@ -65,20 +79,6 @@
         "id": 5,
         "eepromAddress": 6,
         "readOnly": false,
-        "localOnly": false,
-        "visible": true
-      }
-    },
-    {
-      "parentId": 0,
-      "type": "floatItem",
-      "item": {
-        "numDecimalPlaces": 2,
-        "name": "Actual Temp",
-        "variableName": "ActualTemp",
-        "id": 24,
-        "eepromAddress": -1,
-        "readOnly": true,
         "localOnly": false,
         "visible": true
       }
@@ -169,15 +169,15 @@
       "parentId": 9,
       "type": "analogItem",
       "item": {
-        "maxValue": 63,
-        "offset": 1,
+        "maxValue": 1900,
+        "offset": 100,
         "divisor": 1,
-        "unitName": "Step",
-        "name": "Microsteps",
-        "variableName": "SettingsMicrosteps",
-        "id": 13,
-        "eepromAddress": 14,
-        "functionName": "onGearboxChange",
+        "unitName": "mA",
+        "name": "MotorCurrent",
+        "variableName": "SettingsGearboxMotorCurrent",
+        "id": 14,
+        "eepromAddress": 16,
+        "functionName": "onMotorCurrent",
         "readOnly": false,
         "localOnly": false,
         "visible": true
@@ -185,16 +185,22 @@
     },
     {
       "parentId": 9,
-      "type": "analogItem",
+      "type": "enumItem",
       "item": {
-        "maxValue": 1500,
-        "offset": 500,
-        "divisor": 1,
-        "unitName": "mA",
-        "name": "MotorCurrent",
-        "variableName": "SettingsGearboxMotorCurrent",
-        "id": 14,
-        "eepromAddress": 16,
+        "enumEntries": [
+          "0",
+          "2",
+          "4",
+          "8",
+          "16",
+          "32",
+          "64"
+        ],
+        "name": "Microsteps",
+        "variableName": "SettingsGearboxMicrosteps",
+        "id": 26,
+        "eepromAddress": 36,
+        "functionName": "onGearboxChange",
         "readOnly": false,
         "localOnly": false,
         "visible": true
@@ -415,17 +421,17 @@
       },
       {
         "name": "ENCODER_PIN_A",
-        "latestValue": "PB13",
+        "latestValue": "encA",
         "subsystem": "INPUT"
       },
       {
         "name": "ENCODER_PIN_B",
-        "latestValue": "PB14",
+        "latestValue": "encB",
         "subsystem": "INPUT"
       },
       {
         "name": "ENCODER_PIN_OK",
-        "latestValue": "PB12",
+        "latestValue": "encSW",
         "subsystem": "INPUT"
       },
       {

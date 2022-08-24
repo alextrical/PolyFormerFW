@@ -4,8 +4,8 @@ void serialSetup() {
   Serial.begin(baudrate);
   Serial.println("PolyFormer");
   Serial.println();
-  //  Serial.print("Firmware Version: V");
-  //  Serial.println(fwVersion);
+  Serial.print("Firmware Version: V");
+  Serial.println(fwVersion);
   printMenu();
 }
 
@@ -52,8 +52,8 @@ void SerialReceive()
     char b = Serial.read();
     Serial.flush();
     //if ((b == 't' && !tuning) || (b == 't' && tuning))changeAutoTune();
-    //    if (b == '1')runSystem = true;
-    //    if (b == '0')runSystem = false;
+    if (b == '1')runSystem = true;
+    if (b == '0')runSystem = false;
     if (b == 'm')printMenu();
   }
 }

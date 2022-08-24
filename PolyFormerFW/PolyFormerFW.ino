@@ -1,47 +1,47 @@
 #include "PolyFormerFW_menu.h"
+#include "TMCStepper.h"           // TMCstepper - https://github.com/teemuatlut/TMCStepper
 const char pgmCommittedToRom[] PROGMEM = "Saved to ROM";
+const char pgmCommittedToRomMessage[] PROGMEM = "just so you know";
 
 //Hardware Variables
-#define baudrate        9600
+#define baudrate               9600
 #define REFERENCE_RESISTANCE   4700
 #define NOMINAL_RESISTANCE     100000
 #define NOMINAL_TEMPERATURE    25
 #define B_VALUE                3950
 
+#define fwVersion              0.09
+
 //System Variables
 int error = 0; //Start with a clean sheet and no error /* 0=no error; 1=Heater decoupled during rising; 2=Heater decoupled during hold; 10=Over Temp; 11=Thermistor short; 12=No thermistor */
 bool runSystem = false;
 
-//int stepperSpeed = ((stepperMicrosteps * motorStepsPerRevolution * gearboxRatio) / gearboxRadius) * spoolSpeed; //Steps per second. The fastest motor speed that can be reliably supported is about 4000 steps per second at a clock frequency of 16 MHz on Arduino such as Uno etc. Faster processors can support faster stepping speeds.
-int stepperSpeed = 0;
-
 //BlackPill
-#define SDAPin          PB9
-#define SCLPin          PB8
-#define stepperStepPin  PB0
-#define stepperDirPin   PB7
-#define stepperEnPin    PB5
-#define Thermistor1Pin  PA2
-#define meltzoneFanPin  PA6
+//#define SDAPin          PB9
+//#define SCLPin          PB8
+//#define stepperStepPin  PB0
+//#define stepperDirPin   PB7
+//#define stepperEnPin    PB5
+//#define thermistorPin  PA2
+//#define meltzoneFanPin  PA6
 
 
 ////EBB42 v1.1
-//#define SDAPin          PB4
-//#define SCLPin          PB3
-//#define stepperStepPin  PD0
-//#define stepperDirPin   PD1
-//#define stepperEnPin    PD2
+#define SDAPin          PB4
+#define SCLPin          PB3
+#define stepperEnPin    PD2
+#define thermistorPin   PA3
+#define meltzoneFanPin  PA0
+#define encA            PB5
+#define encB            PB7
+#define encSW           PB6
 
 
 void setup() {
   // If you use i2c and serial devices, be sure to start wire / serial.
- Wire.setSDA(SDAPin); //BlackPill
- Wire.setSCL(SCLPin); //BlackPill
+  Wire.setSDA(SDAPin); //BlackPill
+  Wire.setSCL(SCLPin); //BlackPill
   Wire.begin();
-
-  // here we initialise the EEPROM class to 512 bytes of storage
-  // don't commit often to this, it's in FLASH
-//  EEPROM.begin(512);
 
   // This is added by tcMenu Designer automatically during the first setup.
   setupMenu();
@@ -51,28 +51,25 @@ void setup() {
   serialSetup();
   stepperSetup();
   fanSetup();
-
 }
 
 void loop() {
   taskManager.runLoop();
-SerialLoop();
-stepperLoop();
-fanLoop();
+  SerialLoop();
+  fanLoop();
 }
 
 
 void CALLBACK_FUNCTION onSaveSettings(int id) {
-  // TODO - your menu change code
   menuMgr.save();
 
   // here is a brief example of how to show a dialog, usually for information
   // or yes/no answers.
   auto* dlg = renderer.getDialog();
-  if(dlg && !dlg->isInUse()) {
+  if (dlg && !dlg->isInUse()) {
     dlg->setButtons(BTNTYPE_NONE, BTNTYPE_OK);
     dlg->show(pgmCommittedToRom, false);
-    dlg->copyIntoBuffer("just so you know");
+    dlg->copyIntoBuffer(pgmCommittedToRomMessage);
   }
 }
 
@@ -81,28 +78,21 @@ void CALLBACK_FUNCTION onPIDTune(int id) {
 }
 
 void CALLBACK_FUNCTION onStart(int id) {
-  // TODO - your menu change code
-  //digitalWrite(stepperEnPin, LOW); //Low enables the stepper
   runSystem = !runSystem;
+  stepperSppeed();
 }
 
 void CALLBACK_FUNCTION onGearboxChange(int id) {
-  // TODO - your menu change code
-  Serial.print("MotorSteps");
-    Serial.println(menuSettingsMotorSteps.getAsFloatingPointValue());
-  Serial.print("GearboxRatio");
-  Serial.println(menuSettingsGearboxRatio.getAsFloatingPointValue());
-  Serial.print("SpoolRadius");
-  Serial.println(menuSettingsSpoolRadius.getAsFloatingPointValue());
-  Serial.print("Microsteps");
-  Serial.println(menuSettingsMicrosteps.getAsFloatingPointValue());
-  //stepperSpeed = menuSettingsMotorSteps.getAsFloatingPointValue()*menuFeed.getAsFloatingPointValue()*menuSettingsGearboxRatio.getAsFloatingPointValue()*menuSettingsMicrosteps.getAsFloatingPointValue();
-  Serial.print("stepperSpeed");
-  Serial.println(stepperSpeed);
-  stepperSetup();
+  stepperSppeed();
 }
 
 
 void CALLBACK_FUNCTION onNameChanged(int id) {
   // TODO - your menu change code
+}
+
+
+
+void CALLBACK_FUNCTION onMotorCurrent(int id) {
+  stepperCurrent();
 }
