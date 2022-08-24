@@ -17,6 +17,9 @@
 #include <RuntimeMenuItem.h>
 #include <IoAbstraction.h>
 #include <ArduinoEEPROMAbstraction.h>
+#define encA            PB5
+#define encB            PB7
+#define encSW           PB6
 
 // variables we declare that you may need to access
 extern const PROGMEM ConnectorLocalInfo applicationInfo;
@@ -28,9 +31,9 @@ extern GraphicsDeviceRenderer renderer;
 
 // Global Menu Item exports
 extern ActionMenuItem menuSettingsSaveSettings;
-extern AnalogMenuItem menuSettingsTemperatureKd;
-extern AnalogMenuItem menuSettingsTemperatureKi;
-extern AnalogMenuItem menuSettingsTemperatureKp;
+extern AnalogMenuItem menuKd;
+extern AnalogMenuItem menuKi;
+extern AnalogMenuItem menuKp;
 extern ActionMenuItem menuSettingsTemperaturePIDTune;
 extern BackMenuItem menuBackSettingsTemperature;
 extern SubMenuItem menuSettingsTemperature;
@@ -64,7 +67,9 @@ void CALLBACK_FUNCTION onGearboxChange(int id);
 void CALLBACK_FUNCTION onMotorCurrent(int id);
 void CALLBACK_FUNCTION onNameChanged(int id);
 void CALLBACK_FUNCTION onPIDTune(int id);
+void CALLBACK_FUNCTION onPidChange(int id);
 void CALLBACK_FUNCTION onSaveSettings(int id);
 void CALLBACK_FUNCTION onStart(int id);
+void CALLBACK_FUNCTION onTemperatureChange(int id);
 
 #endif // MENU_GENERATED_CODE_H

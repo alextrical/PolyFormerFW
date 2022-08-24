@@ -7,9 +7,6 @@
     All the variables you may need access to are marked extern in this file for easy
     use elsewhere.
  */
-#define encA            PB5
-#define encB            PB7
-#define encSW           PB6
 
 #include <tcMenu.h>
 #include "PolyFormerFW_menu.h"
@@ -25,14 +22,14 @@ GraphicsDeviceRenderer renderer(30, applicationInfo.name, &gfxDrawable);
 // Global Menu Item declarations
 const AnyMenuInfo minfoSettingsSaveSettings = { "SaveSettings", 20, 0xffff, 0, onSaveSettings };
 ActionMenuItem menuSettingsSaveSettings(&minfoSettingsSaveSettings, NULL);
-const AnalogMenuInfo minfoSettingsTemperatureKd = { "Kd", 19, 34, 10000, NO_CALLBACK, 0, 100, "D" };
-AnalogMenuItem menuSettingsTemperatureKd(&minfoSettingsTemperatureKd, 0, NULL);
-const AnalogMenuInfo minfoSettingsTemperatureKi = { "Ki", 18, 32, 10000, NO_CALLBACK, 0, 100, "I" };
-AnalogMenuItem menuSettingsTemperatureKi(&minfoSettingsTemperatureKi, 0, &menuSettingsTemperatureKd);
-const AnalogMenuInfo minfoSettingsTemperatureKp = { "Kp", 17, 30, 10000, NO_CALLBACK, 0, 100, "P" };
-AnalogMenuItem menuSettingsTemperatureKp(&minfoSettingsTemperatureKp, 0, &menuSettingsTemperatureKi);
+const AnalogMenuInfo minfoKd = { "Kd", 19, 34, 10000, onPidChange, 0, 10, "D" };
+AnalogMenuItem menuKd(&minfoKd, 0, NULL);
+const AnalogMenuInfo minfoKi = { "Ki", 18, 32, 10000, onPidChange, 0, 10, "I" };
+AnalogMenuItem menuKi(&minfoKi, 0, &menuKd);
+const AnalogMenuInfo minfoKp = { "Kp", 17, 30, 10000, onPidChange, 0, 10, "P" };
+AnalogMenuItem menuKp(&minfoKp, 0, &menuKi);
 const AnyMenuInfo minfoSettingsTemperaturePIDTune = { "PIDTune", 16, 0xffff, 0, onPIDTune };
-ActionMenuItem menuSettingsTemperaturePIDTune(&minfoSettingsTemperaturePIDTune, &menuSettingsTemperatureKp);
+ActionMenuItem menuSettingsTemperaturePIDTune(&minfoSettingsTemperaturePIDTune, &menuKp);
 RENDERING_CALLBACK_NAME_INVOKE(fnSettingsTemperatureRtCall, backSubItemRenderFn, "Temperature", -1, NO_CALLBACK)
 const SubMenuInfo minfoSettingsTemperature = { "Temperature", 15, 0xffff, 0, NO_CALLBACK };
 BackMenuItem menuBackSettingsTemperature(fnSettingsTemperatureRtCall, &menuSettingsTemperaturePIDTune);
@@ -73,7 +70,7 @@ BackMenuItem menuBackSettings(fnSettingsRtCall, &menuSettingsGearbox);
 SubMenuItem menuSettings(&minfoSettings, &menuBackSettings, NULL);
 const AnalogMenuInfo minfoFan = { "Fan", 5, 6, 100, NO_CALLBACK, 0, 1, "%" };
 AnalogMenuItem menuFan(&minfoFan, 0, &menuSettings);
-const AnalogMenuInfo minfoTemperature = { "Setpoint", 3, 4, 150, NO_CALLBACK, 100, 1, "C" };
+const AnalogMenuInfo minfoTemperature = { "Setpoint", 3, 4, 150, onTemperatureChange, 100, 1, "C" };
 AnalogMenuItem menuTemperature(&minfoTemperature, 0, &menuFan);
 const AnalogMenuInfo minfoFeed = { "Feed", 2, 2, 149, onGearboxChange, 1, 10, "mm s" };
 AnalogMenuItem menuFeed(&minfoFeed, 0, &menuTemperature);
@@ -97,3 +94,4 @@ void setupMenu() {
     renderer.setUseSliderForAnalog(false);
     installMonoBorderedTheme(renderer, MenuFontDef(nullptr, 1), MenuFontDef(u8g2_font_finderskeepers_tf, 1), true);
 }
+

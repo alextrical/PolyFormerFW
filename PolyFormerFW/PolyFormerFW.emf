@@ -61,6 +61,7 @@
         "variableName": "Temperature",
         "id": 3,
         "eepromAddress": 4,
+        "functionName": "onTemperatureChange",
         "readOnly": false,
         "localOnly": false,
         "visible": true
@@ -287,12 +288,13 @@
       "item": {
         "maxValue": 10000,
         "offset": 0,
-        "divisor": 100,
+        "divisor": 10,
         "unitName": "P",
         "name": "Kp",
-        "variableName": "SettingsTemperatureKp",
+        "variableName": "Kp",
         "id": 17,
         "eepromAddress": 30,
+        "functionName": "onPidChange",
         "readOnly": false,
         "localOnly": false,
         "visible": true
@@ -304,12 +306,13 @@
       "item": {
         "maxValue": 10000,
         "offset": 0,
-        "divisor": 100,
+        "divisor": 10,
         "unitName": "I",
         "name": "Ki",
-        "variableName": "SettingsTemperatureKi",
+        "variableName": "Ki",
         "id": 18,
         "eepromAddress": 32,
+        "functionName": "onPidChange",
         "readOnly": false,
         "localOnly": false,
         "visible": true
@@ -321,12 +324,13 @@
       "item": {
         "maxValue": 10000,
         "offset": 0,
-        "divisor": 100,
+        "divisor": 10,
         "unitName": "D",
         "name": "Kd",
-        "variableName": "SettingsTemperatureKd",
+        "variableName": "Kd",
         "id": 19,
         "eepromAddress": 34,
+        "functionName": "onPidChange",
         "readOnly": false,
         "localOnly": false,
         "visible": true

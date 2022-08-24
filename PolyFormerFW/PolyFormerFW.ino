@@ -2,6 +2,7 @@
 #include "TMCStepper.h"           // TMCstepper - https://github.com/teemuatlut/TMCStepper
 const char pgmCommittedToRom[] PROGMEM = "Saved to ROM";
 const char pgmCommittedToRomMessage[] PROGMEM = "just so you know";
+const char pgmTuning[] PROGMEM = "Tuning PID";
 
 //Hardware Variables
 #define baudrate               9600
@@ -15,6 +16,8 @@ const char pgmCommittedToRomMessage[] PROGMEM = "just so you know";
 //System Variables
 int error = 0; //Start with a clean sheet and no error /* 0=no error; 1=Heater decoupled during rising; 2=Heater decoupled during hold; 10=Over Temp; 11=Thermistor short; 12=No thermistor */
 bool runSystem = false;
+bool pidTuneRun = false;
+double Setpoint;
 
 //BlackPill
 //#define SDAPin          PB9
@@ -22,7 +25,8 @@ bool runSystem = false;
 //#define stepperStepPin  PB0
 //#define stepperDirPin   PB7
 //#define stepperEnPin    PB5
-//#define thermistorPin  PA2
+//#define thermistorPin   PA2
+//#define heaterPin
 //#define meltzoneFanPin  PA6
 
 
@@ -31,6 +35,7 @@ bool runSystem = false;
 #define SCLPin          PB3
 #define stepperEnPin    PD2
 #define thermistorPin   PA3
+#define heaterPin       PA2
 #define meltzoneFanPin  PA0
 #define encA            PB5
 #define encB            PB7
@@ -51,12 +56,19 @@ void setup() {
   serialSetup();
   stepperSetup();
   fanSetup();
+  pidSetup();
 }
 
 void loop() {
   taskManager.runLoop();
   SerialLoop();
   fanLoop();
+  //  // Run a loop until tuner.isFinished() returns true
+  //  if (pidTuneRun) {
+  //    pidTuneLoop();
+  //  }else{
+  pidLoop();
+  //  }
 }
 
 
@@ -75,6 +87,7 @@ void CALLBACK_FUNCTION onSaveSettings(int id) {
 
 void CALLBACK_FUNCTION onPIDTune(int id) {
   // TODO - your menu change code
+  pidTune();
 }
 
 void CALLBACK_FUNCTION onStart(int id) {
@@ -95,4 +108,14 @@ void CALLBACK_FUNCTION onNameChanged(int id) {
 
 void CALLBACK_FUNCTION onMotorCurrent(int id) {
   stepperCurrent();
+}
+
+
+void CALLBACK_FUNCTION onPidChange(int id) {
+  pidChange();
+}
+
+
+void CALLBACK_FUNCTION onTemperatureChange(int id) {
+  Setpoint = menuTemperature.getAsFloatingPointValue();
 }
