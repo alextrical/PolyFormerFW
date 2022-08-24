@@ -1,7 +1,6 @@
 #include <GyverNTC.h>
 GyverNTC therm(thermistorPin, NOMINAL_RESISTANCE, B_VALUE, NOMINAL_TEMPERATURE, REFERENCE_RESISTANCE);  // pin, R thermistor, B thermistor, base temperature, R resistor
 
-
 bool fan1 = false; //Keep track of the fan state
 
 //#define ANALOG_RESOLUTION 65535 //16 Bit resolution, this can be higher than your MCU supports, and will adjust accordingly
@@ -20,16 +19,16 @@ void fanSetup() {
 
 void fanLoop() {
   if (error == 0) {
-//    if (therm.getTemp() >= meltzoneFanTemp || targetTemperatureC >= meltzoneFanTemp )
-//    {
-      analogWrite(meltzoneFanPin, menuFan.getAsFloatingPointValue() * 2.55);
-      fan1 = true;
-//    } else {
-//      digitalWrite(meltzoneFanPin, LOW);
-//      fan1 = false;
-//    }
-//  } else {
-//    digitalWrite(meltzoneFanPin, HIGH); //Error detected, run fan at full power.
-//    fan1 = true;
+    //    if (therm.getTemp() >= meltzoneFanTemp || targetTemperatureC >= meltzoneFanTemp )
+    //    {
+    analogWrite(meltzoneFanPin, menuFan.getAsFloatingPointValue() * 2.55);
+    fan1 = true;
+    //    } else {
+    //      digitalWrite(meltzoneFanPin, LOW);
+    //      fan1 = false;
+    //    }
+  } else {
+    digitalWrite(meltzoneFanPin, HIGH); //Error detected, run fan at full power.
+    fan1 = true;
   }
 };
