@@ -11,6 +11,9 @@
 #include <tcMenu.h>
 #include "PolyFormerFW_menu.h"
 #include "ThemeMonoBordered.h"
+#define encA            PB5
+#define encB            PB7
+#define encSW           PB6
 
 // Global variable declarations
 const  ConnectorLocalInfo applicationInfo = { "PolyFormer", "fddaa423-cb5c-4024-8f67-a9742f4457f3" };
@@ -42,6 +45,8 @@ RENDERING_CALLBACK_NAME_INVOKE(fnSettingsPersonalisationRtCall, backSubItemRende
 const SubMenuInfo minfoSettingsPersonalisation = { "Personalisation", 21, 0xffff, 0, NO_CALLBACK };
 BackMenuItem menuBackSettingsPersonalisation(fnSettingsPersonalisationRtCall, &menuSettingsPersonalisationUserName);
 SubMenuItem menuSettingsPersonalisation(&minfoSettingsPersonalisation, &menuBackSettingsPersonalisation, &menuSettingsTemperature);
+const BooleanMenuInfo minfoReverse = { "Reverse", 27, 39, 1, onGearboxChange, NAMING_TRUE_FALSE };
+BooleanMenuItem menuReverse(&minfoReverse, false, NULL);
 const char enumStrSettingsGearboxMicrosteps_0[] = "0";
 const char enumStrSettingsGearboxMicrosteps_1[] = "2";
 const char enumStrSettingsGearboxMicrosteps_2[] = "4";
@@ -51,12 +56,12 @@ const char enumStrSettingsGearboxMicrosteps_5[] = "32";
 const char enumStrSettingsGearboxMicrosteps_6[] = "64";
 const char* const enumStrSettingsGearboxMicrosteps[]  = { enumStrSettingsGearboxMicrosteps_0, enumStrSettingsGearboxMicrosteps_1, enumStrSettingsGearboxMicrosteps_2, enumStrSettingsGearboxMicrosteps_3, enumStrSettingsGearboxMicrosteps_4, enumStrSettingsGearboxMicrosteps_5, enumStrSettingsGearboxMicrosteps_6 };
 const EnumMenuInfo minfoSettingsGearboxMicrosteps = { "Microsteps", 26, 36, 6, onGearboxChange, enumStrSettingsGearboxMicrosteps };
-EnumMenuItem menuSettingsGearboxMicrosteps(&minfoSettingsGearboxMicrosteps, 0, NULL);
+EnumMenuItem menuSettingsGearboxMicrosteps(&minfoSettingsGearboxMicrosteps, 0, &menuReverse);
 const AnalogMenuInfo minfoSettingsGearboxMotorCurrent = { "MotorCurrent", 14, 16, 1900, onMotorCurrent, 100, 1, "mA" };
 AnalogMenuItem menuSettingsGearboxMotorCurrent(&minfoSettingsGearboxMotorCurrent, 0, &menuSettingsGearboxMicrosteps);
-const AnalogMenuInfo minfoSettingsSpoolRadius = { "SpoolRadius", 12, 12, 450, onGearboxChange, 50, 1, "mm" };
+const AnalogMenuInfo minfoSettingsSpoolRadius = { "SpoolRadius", 12, 12, 499, onGearboxChange, 1, 1, "mm" };
 AnalogMenuItem menuSettingsSpoolRadius(&minfoSettingsSpoolRadius, 0, &menuSettingsGearboxMotorCurrent);
-const AnalogMenuInfo minfoSettingsGearboxRatio = { "GearboxRatio", 11, 10, 99, onGearboxChange, 1, 1, "to1" };
+const AnalogMenuInfo minfoSettingsGearboxRatio = { "GearboxRatio", 11, 10, 200, onGearboxChange, 0, 2, "to1" };
 AnalogMenuItem menuSettingsGearboxRatio(&minfoSettingsGearboxRatio, 0, &menuSettingsSpoolRadius);
 const AnalogMenuInfo minfoSettingsMotorSteps = { "MotorSteps", 10, 8, 396, onGearboxChange, 4, 1, "Step" };
 AnalogMenuItem menuSettingsMotorSteps(&minfoSettingsMotorSteps, 0, &menuSettingsGearboxRatio);
@@ -94,4 +99,3 @@ void setupMenu() {
     renderer.setUseSliderForAnalog(false);
     installMonoBorderedTheme(renderer, MenuFontDef(nullptr, 1), MenuFontDef(u8g2_font_finderskeepers_tf, 1), true);
 }
-

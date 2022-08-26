@@ -134,9 +134,9 @@
       "parentId": 9,
       "type": "analogItem",
       "item": {
-        "maxValue": 99,
-        "offset": 1,
-        "divisor": 1,
+        "maxValue": 200,
+        "offset": 0,
+        "divisor": 2,
         "unitName": "to1",
         "name": "GearboxRatio",
         "variableName": "SettingsGearboxRatio",
@@ -152,8 +152,8 @@
       "parentId": 9,
       "type": "analogItem",
       "item": {
-        "maxValue": 450,
-        "offset": 50,
+        "maxValue": 499,
+        "offset": 1,
         "divisor": 1,
         "unitName": "mm",
         "name": "SpoolRadius",
@@ -201,6 +201,21 @@
         "variableName": "SettingsGearboxMicrosteps",
         "id": 26,
         "eepromAddress": 36,
+        "functionName": "onGearboxChange",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 9,
+      "type": "boolItem",
+      "item": {
+        "naming": "TRUE_FALSE",
+        "name": "Reverse",
+        "variableName": "Reverse",
+        "id": 27,
+        "eepromAddress": 39,
         "functionName": "onGearboxChange",
         "readOnly": false,
         "localOnly": false,

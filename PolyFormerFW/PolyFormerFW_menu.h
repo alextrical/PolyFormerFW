@@ -17,9 +17,6 @@
 #include <RuntimeMenuItem.h>
 #include <IoAbstraction.h>
 #include <ArduinoEEPROMAbstraction.h>
-#define encA            PB5
-#define encB            PB7
-#define encSW           PB6
 
 // variables we declare that you may need to access
 extern const PROGMEM ConnectorLocalInfo applicationInfo;
@@ -41,6 +38,7 @@ extern AnalogMenuItem menuSettingsPersonalisationSerialNumber;
 extern TextMenuItem menuSettingsPersonalisationUserName;
 extern BackMenuItem menuBackSettingsPersonalisation;
 extern SubMenuItem menuSettingsPersonalisation;
+extern BooleanMenuItem menuReverse;
 extern EnumMenuItem menuSettingsGearboxMicrosteps;
 extern AnalogMenuItem menuSettingsGearboxMotorCurrent;
 extern AnalogMenuItem menuSettingsSpoolRadius;

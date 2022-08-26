@@ -34,7 +34,8 @@ void stepperSetup()
 }
 
 void stepperSppeed()
-{
+{ 
+  driver.shaft(menuReverse.getCurrentValue()); // SET DIRECTION
   stepperMicrosteps();
   int32_t dest_speed;
   if (runSystem) {

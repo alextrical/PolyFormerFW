@@ -17,6 +17,7 @@ const char pgmTuning[] PROGMEM = "Tuning PID";
 int error = 0; //Start with a clean sheet and no error /* 0=no error; 1=Heater decoupled during rising; 2=Heater decoupled during hold; 10=Over Temp; 11=Thermistor short; 12=No thermistor */
 bool runSystem = false;
 bool pidTuneRun = false;
+double Setpoint;
 
 //BlackPill
 //#define SDAPin          PB9
@@ -112,4 +113,9 @@ void CALLBACK_FUNCTION onMotorCurrent(int id) {
 
 void CALLBACK_FUNCTION onPidChange(int id) {
   pidChange();
+}
+
+
+void CALLBACK_FUNCTION onTemperatureChange(int id) {
+  Setpoint = menuTemperature.getAsFloatingPointValue();
 }
