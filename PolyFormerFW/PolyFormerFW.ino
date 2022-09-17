@@ -1,3 +1,15 @@
+//Install the following libraries from the arduino Library manager
+//TCMenu 2.3.1
+//U8g2lib 2.33.15
+//TMCStepper 0.7.3
+//GyverNTC 1.2.0
+//PID 1.2.0
+
+//Add STM32Duino
+//https://github.com/stm32duino/wiki/wiki/Getting-Started
+//Use version 2.4.0 (If not available yet, use the main branch found here https://github.com/stm32duino/Arduino_Core_STM32), this adds support for the EBB42
+
+
 #include "PolyFormerFW_menu.h"
 #include "TMCStepper.h"           // TMCstepper - https://github.com/teemuatlut/TMCStepper
 const char pgmCommittedToRom[] PROGMEM = "Saved to ROM";
