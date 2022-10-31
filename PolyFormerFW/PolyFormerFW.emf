@@ -1,7 +1,7 @@
 {
   "version": "1.00",
   "projectName": "Menu system for PolyFormer",
-  "author": "alextrical",
+  "author": "Alextrical",
   "items": [
     {
       "parentId": 0,
@@ -20,6 +20,7 @@
     {
       "parentId": 0,
       "type": "floatItem",
+      "defaultValue": "0.0",
       "item": {
         "numDecimalPlaces": 2,
         "name": "Actual Temp",
@@ -34,11 +35,13 @@
     {
       "parentId": 0,
       "type": "analogItem",
+      "defaultValue": "0",
       "item": {
         "maxValue": 149,
         "offset": 1,
         "divisor": 10,
         "unitName": "mm s",
+        "step": 1,
         "name": "Feed",
         "variableName": "Feed",
         "id": 2,
@@ -52,11 +55,13 @@
     {
       "parentId": 0,
       "type": "analogItem",
+      "defaultValue": "100",
       "item": {
         "maxValue": 150,
         "offset": 100,
         "divisor": 1,
         "unitName": "C",
+        "step": 1,
         "name": "Setpoint",
         "variableName": "Temperature",
         "id": 3,
@@ -70,11 +75,13 @@
     {
       "parentId": 0,
       "type": "analogItem",
+      "defaultValue": "100",
       "item": {
         "maxValue": 100,
         "offset": 0,
         "divisor": 1,
         "unitName": "%",
+        "step": 1,
         "name": "Fan",
         "variableName": "Fan",
         "id": 5,
@@ -115,11 +122,13 @@
     {
       "parentId": 9,
       "type": "analogItem",
+      "defaultValue": "196",
       "item": {
         "maxValue": 396,
         "offset": 4,
         "divisor": 1,
         "unitName": "Step",
+        "step": 1,
         "name": "MotorSteps",
         "variableName": "SettingsMotorSteps",
         "id": 10,
@@ -133,11 +142,13 @@
     {
       "parentId": 9,
       "type": "analogItem",
+      "defaultValue": "60",
       "item": {
         "maxValue": 200,
         "offset": 0,
         "divisor": 2,
         "unitName": "to1",
+        "step": 1,
         "name": "GearboxRatio",
         "variableName": "SettingsGearboxRatio",
         "id": 11,
@@ -151,11 +162,13 @@
     {
       "parentId": 9,
       "type": "analogItem",
+      "defaultValue": "49",
       "item": {
         "maxValue": 499,
         "offset": 1,
         "divisor": 1,
         "unitName": "mm",
+        "step": 1,
         "name": "SpoolRadius",
         "variableName": "SettingsSpoolRadius",
         "id": 12,
@@ -169,11 +182,13 @@
     {
       "parentId": 9,
       "type": "analogItem",
+      "defaultValue": "500",
       "item": {
         "maxValue": 1900,
         "offset": 100,
         "divisor": 1,
         "unitName": "mA",
+        "step": 1,
         "name": "MotorCurrent",
         "variableName": "SettingsGearboxMotorCurrent",
         "id": 14,
@@ -187,6 +202,7 @@
     {
       "parentId": 9,
       "type": "enumItem",
+      "defaultValue": "4",
       "item": {
         "enumEntries": [
           "0",
@@ -210,6 +226,7 @@
     {
       "parentId": 9,
       "type": "boolItem",
+      "defaultValue": "false",
       "item": {
         "naming": "TRUE_FALSE",
         "name": "Reverse",
@@ -239,6 +256,7 @@
     {
       "parentId": 21,
       "type": "textItem",
+      "defaultValue": "",
       "item": {
         "textLength": 10,
         "itemType": "PLAIN_TEXT",
@@ -255,11 +273,13 @@
     {
       "parentId": 21,
       "type": "analogItem",
+      "defaultValue": "0",
       "item": {
         "maxValue": 999,
         "offset": 0,
         "divisor": 1,
         "unitName": "",
+        "step": 1,
         "name": "Serial Number",
         "variableName": "SettingsPersonalisationSerialNumber",
         "id": 23,
@@ -300,11 +320,13 @@
     {
       "parentId": 15,
       "type": "analogItem",
+      "defaultValue": "85",
       "item": {
         "maxValue": 10000,
         "offset": 0,
         "divisor": 10,
         "unitName": "P",
+        "step": 1,
         "name": "Kp",
         "variableName": "Kp",
         "id": 17,
@@ -318,11 +340,13 @@
     {
       "parentId": 15,
       "type": "analogItem",
+      "defaultValue": "4",
       "item": {
         "maxValue": 10000,
         "offset": 0,
         "divisor": 10,
         "unitName": "I",
+        "step": 1,
         "name": "Ki",
         "variableName": "Ki",
         "id": 18,
@@ -336,11 +360,13 @@
     {
       "parentId": 15,
       "type": "analogItem",
+      "defaultValue": "411",
       "item": {
         "maxValue": 10000,
         "offset": 0,
         "divisor": 10,
         "unitName": "D",
+        "step": 1,
         "name": "Kd",
         "variableName": "Kd",
         "id": 19,
