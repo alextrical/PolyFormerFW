@@ -11,9 +11,7 @@
 #include <tcMenu.h>
 #include "PolyFormerFW_menu.h"
 #include "ThemeMonoBordered.h"
-#define encA            PB5
-#define encB            PB7
-#define encSW           PB6
+#include "configuration.h"
 
 // Global variable declarations
 const  ConnectorLocalInfo applicationInfo = { "PolyFormer", "fddaa423-cb5c-4024-8f67-a9742f4457f3" };
@@ -99,4 +97,3 @@ void setupMenu() {
     renderer.setUseSliderForAnalog(false);
     installMonoBorderedTheme(renderer, MenuFontDef(nullptr, 1), MenuFontDef(u8g2_font_finderskeepers_tf, 1), true);
 }
-

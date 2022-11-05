@@ -11,7 +11,7 @@
 
 
 #include "PolyFormerFW_menu.h"
-#include "TMCStepper.h"           // TMCstepper - https://github.com/teemuatlut/TMCStepper
+#include "TMCStepper.h"           // TMCstepper - https://github.com/teemuatlut/TMCStepper 
 const char pgmCommittedToRom[] PROGMEM = "Saved to ROM";
 const char pgmCommittedToRomMessage[] PROGMEM = "just so you know";
 const char pgmTuning[] PROGMEM = "Tuning PID";
@@ -30,28 +30,6 @@ int error = 0; //Start with a clean sheet and no error /* 0=no error; 1=Heater d
 bool runSystem = false;
 bool pidTuneRun = false;
 double Setpoint;
-
-//BlackPill
-//#define SDAPin          PB9
-//#define SCLPin          PB8
-//#define stepperStepPin  PB0
-//#define stepperDirPin   PB7
-//#define stepperEnPin    PB5
-//#define thermistorPin   PA2
-//#define heaterPin
-//#define meltzoneFanPin  PA6
-
-
-////EBB42 v1.1
-#define SDAPin          PB4
-#define SCLPin          PB3
-#define stepperEnPin    PD2
-#define thermistorPin   PA3
-#define heaterPin       PA2
-#define meltzoneFanPin  PA0
-#define encA            PB5
-#define encB            PB7
-#define encSW           PB6
 
 
 
