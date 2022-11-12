@@ -16,7 +16,8 @@
 // Global variable declarations
 const  ConnectorLocalInfo applicationInfo = { "PolyFormer", "fddaa423-cb5c-4024-8f67-a9742f4457f3" };
 ArduinoEEPROMAbstraction glArduinoEeprom(&EEPROM);
-U8G2_SSD1306_128X64_NONAME_F_HW_I2C gfx(U8G2_R2, U8X8_PIN_NONE, U8X8_PIN_NONE, U8X8_PIN_NONE);
+//U8G2_SSD1306_128X64_NONAME_F_HW_I2C gfx(U8G2_R2, U8X8_PIN_NONE, U8X8_PIN_NONE, U8X8_PIN_NONE);
+U8G2_SH1106_128X64_NONAME_F_HW_I2C gfx(U8G2_R2, /* reset=*/ U8X8_PIN_NONE);
 U8g2Drawable gfxDrawable(&gfx, &Wire);
 GraphicsDeviceRenderer renderer(30, applicationInfo.name, &gfxDrawable);
 
@@ -24,7 +25,7 @@ GraphicsDeviceRenderer renderer(30, applicationInfo.name, &gfxDrawable);
 const AnyMenuInfo minfoSettingsSaveSettings = { "SaveSettings", 20, 0xffff, 0, onSaveSettings };
 ActionMenuItem menuSettingsSaveSettings(&minfoSettingsSaveSettings, NULL);
 const AnalogMenuInfo minfoKd = { "Kd", 19, 34, 10000, onPidChange, 0, 10, "D" };
-AnalogMenuItem menuKd(&minfoKd, 411, NULL);
+AnalogMenuItem menuKd(&minfoKd, 41, NULL);
 const AnalogMenuInfo minfoKi = { "Ki", 18, 32, 10000, onPidChange, 0, 10, "I" };
 AnalogMenuItem menuKi(&minfoKi, 4, &menuKd);
 const AnalogMenuInfo minfoKp = { "Kp", 17, 30, 10000, onPidChange, 0, 10, "P" };
@@ -72,9 +73,9 @@ const SubMenuInfo minfoSettings = { "Settings", 6, 0xffff, 0, NO_CALLBACK };
 BackMenuItem menuBackSettings(fnSettingsRtCall, &menuSettingsGearbox);
 SubMenuItem menuSettings(&minfoSettings, &menuBackSettings, NULL);
 const AnalogMenuInfo minfoFan = { "Fan", 5, 6, 100, NO_CALLBACK, 0, 1, "%" };
-AnalogMenuItem menuFan(&minfoFan, 0, &menuSettings);
+AnalogMenuItem menuFan(&minfoFan, 100, &menuSettings);
 const AnalogMenuInfo minfoTemperature = { "Setpoint", 3, 4, 150, onTemperatureChange, 100, 1, "C" };
-AnalogMenuItem menuTemperature(&minfoTemperature, 0, &menuFan);
+AnalogMenuItem menuTemperature(&minfoTemperature, 100, &menuFan);
 const AnalogMenuInfo minfoFeed = { "Feed", 2, 2, 149, onGearboxChange, 1, 10, "mm s" };
 AnalogMenuItem menuFeed(&minfoFeed, 0, &menuTemperature);
 const FloatMenuInfo minfoActualTemp = { "Actual Temp", 24, 0xffff, 2, NO_CALLBACK };

@@ -12,6 +12,7 @@
 
 #include "PolyFormerFW_menu.h"
 #include "TMCStepper.h"           // TMCstepper - https://github.com/teemuatlut/TMCStepper 
+#include "configuration.h"
 const char pgmCommittedToRom[] PROGMEM = "Saved to ROM";
 const char pgmCommittedToRomMessage[] PROGMEM = "just so you know";
 const char pgmTuning[] PROGMEM = "Tuning PID";
@@ -23,7 +24,7 @@ const char pgmTuning[] PROGMEM = "Tuning PID";
 #define NOMINAL_TEMPERATURE    25
 #define B_VALUE                3950
 
-#define fwVersion              0.09
+#define fwVersion              0.12
 
 //System Variables
 int error = 0; //Start with a clean sheet and no error /* 0=no error; 1=Heater decoupled during rising; 2=Heater decoupled during hold; 10=Over Temp; 11=Thermistor short; 12=No thermistor */
@@ -35,8 +36,8 @@ double Setpoint;
 
 void setup() {
   // If you use i2c and serial devices, be sure to start wire / serial.
-  Wire.setSDA(SDAPin); //BlackPill
-  Wire.setSCL(SCLPin); //BlackPill
+  Wire.setSDA(SDAPin);
+  Wire.setSCL(SCLPin);
   Wire.begin();
 
   // This is added by tcMenu Designer automatically during the first setup.

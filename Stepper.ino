@@ -1,5 +1,5 @@
 #define DRIVER_ADDRESS    0b00    // TMC2209 Driver address
-#define R_SENSE           0 //.11f   // SilentStepStick series use 0.11
+#define R_SENSE           0.11f   // SilentStepStick series use 0.11
 int microstep;
 
 //#define RMS_CURRENT       600     // Motor RMS current in mA
@@ -16,16 +16,15 @@ void stepperSetup()
   pinMode(stepperEnPin, OUTPUT);
 
   Serial2.begin(115200);
-  USART2->CR1 &= ~USART_CR1_UE; // UE = 0... disable USART
-  USART2->CR2 |= USART_CR2_SWAP; //Swap TX/RX pins2
+  USART2->CR1 &= ~USART_CR1_UE;   // UE = 0... disable USART
+  USART2->CR2 |= USART_CR2_SWAP;  //Swap TX/RX pins2
   USART2->CR3 |= USART_CR3_HDSEL; //Set Half-duplex selection
-  USART2->CR1 |= USART_CR1_UE; // UE = 1... Enable USART
+  USART2->CR1 |= USART_CR1_UE;    // UE = 1... Enable USART
 
   digitalWrite(stepperEnPin, LOW);            // Enable TMC2209 board
 
   driver.begin();
   driver.toff(5);                       // Enables driver in software
-  driver.internal_Rsense(true);         // User Internal sense resistors.
   //  driver.rms_current(RMS_CURRENT);      // Set motor RMS current (mA)
   stepperMicrosteps();
   stepperCurrent();

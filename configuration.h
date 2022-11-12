@@ -21,6 +21,7 @@
 #define stepperEnPin    PD2
 #define thermistorPin   PA3
 #define heaterPin       PA2
+#define heaterPinAlt    PB13
 #define meltzoneFanPin  PA0
 #define encA            PB5
 #define encB            PB7

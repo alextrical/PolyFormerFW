@@ -34,6 +34,7 @@ void pidLoop()
       Input = therm.getTemp();
       myPID.Compute();
       analogWrite(heaterPin, Output);
+      analogWrite(heaterPinAlt, Output);
       pidTime += 100;
     }
   } else {
