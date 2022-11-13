@@ -15,38 +15,44 @@
 #include <tcMenu.h>
 #include "tcMenuU8g2.h"
 #include <RuntimeMenuItem.h>
-#include <EditableLargeNumberMenuItem.h>
 #include <IoAbstraction.h>
 #include <ArduinoEEPROMAbstraction.h>
 
 // variables we declare that you may need to access
 extern const PROGMEM ConnectorLocalInfo applicationInfo;
-extern U8G2_SSD1306_128X64_NONAME_F_HW_I2C gfx;
+//extern U8G2_SSD1306_128X64_NONAME_F_HW_I2C gfx;
+extern U8G2_SH1106_128X64_NONAME_F_HW_I2C gfx;
 extern GraphicsDeviceRenderer renderer;
 
 // Any externals needed by IO expanders, EEPROMs etc
 
 
 // Global Menu Item exports
-extern AnalogMenuItem menuSettingsD;
-extern AnalogMenuItem menuSettingsI;
-extern AnalogMenuItem menuSettingsP;
-extern ActionMenuItem menuSettingsPIDTune;
 extern ActionMenuItem menuSettingsSaveSettings;
-extern AnalogMenuItem menuSettingsMotorCurrent;
-extern AnalogMenuItem menuSettingsMicrosteps;
+extern AnalogMenuItem menuKd;
+extern AnalogMenuItem menuKi;
+extern AnalogMenuItem menuKp;
+extern ActionMenuItem menuSettingsTemperaturePIDTune;
+extern BackMenuItem menuBackSettingsTemperature;
+extern SubMenuItem menuSettingsTemperature;
+extern AnalogMenuItem menuSettingsPersonalisationSerialNumber;
+extern TextMenuItem menuSettingsPersonalisationUserName;
+extern BackMenuItem menuBackSettingsPersonalisation;
+extern SubMenuItem menuSettingsPersonalisation;
+extern BooleanMenuItem menuReverse;
+extern EnumMenuItem menuSettingsGearboxMicrosteps;
+extern AnalogMenuItem menuSettingsGearboxMotorCurrent;
 extern AnalogMenuItem menuSettingsSpoolRadius;
 extern AnalogMenuItem menuSettingsGearboxRatio;
 extern AnalogMenuItem menuSettingsMotorSteps;
-extern AnalogMenuItem menuSettingsSerialNumber2;
-extern EditableLargeNumberMenuItem menuSettingsSerialNumber;
-extern TextMenuItem menuSettingsUserName;
+extern BackMenuItem menuBackSettingsGearbox;
+extern SubMenuItem menuSettingsGearbox;
 extern BackMenuItem menuBackSettings;
 extern SubMenuItem menuSettings;
 extern AnalogMenuItem menuFan;
-extern AnalogMenuItem menuActualTemp;
 extern AnalogMenuItem menuTemperature;
 extern AnalogMenuItem menuFeed;
+extern FloatMenuItem menuActualTemp;
 extern ActionMenuItem menuStart;
 
 // Provide a wrapper to get hold of the root menu item and export setupMenu
@@ -56,9 +62,13 @@ void setupMenu();
 // Callback functions must always include CALLBACK_FUNCTION after the return type
 #define CALLBACK_FUNCTION
 
+void CALLBACK_FUNCTION onGearboxChange(int id);
+void CALLBACK_FUNCTION onMotorCurrent(int id);
 void CALLBACK_FUNCTION onNameChanged(int id);
 void CALLBACK_FUNCTION onPIDTune(int id);
+void CALLBACK_FUNCTION onPidChange(int id);
 void CALLBACK_FUNCTION onSaveSettings(int id);
 void CALLBACK_FUNCTION onStart(int id);
+void CALLBACK_FUNCTION onTemperatureChange(int id);
 
 #endif // MENU_GENERATED_CODE_H

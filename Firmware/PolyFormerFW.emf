@@ -1,6 +1,6 @@
 {
   "version": "1.00",
-  "projectName": "C:\\Users\\dave\\Documents\\Arduino\\tcLibraryDev\\lib\\tcMenu\\examples\\simpleU8g2\\simpleU8g2.emf",
+  "projectName": "Menu system for PolyFormer",
   "author": "alextrical",
   "items": [
     {
@@ -9,7 +9,7 @@
       "item": {
         "name": "Start",
         "variableName": "Start",
-        "id": 4,
+        "id": 1,
         "eepromAddress": -1,
         "functionName": "onStart",
         "readOnly": false,
@@ -19,49 +19,13 @@
     },
     {
       "parentId": 0,
-      "type": "analogItem",
+      "type": "floatItem",
+      "defaultValue": "0.0",
       "item": {
-        "maxValue": 255,
-        "offset": 0,
-        "divisor": 1,
-        "unitName": "mm s",
-        "name": "Feed",
-        "variableName": "Feed",
-        "id": 2,
-        "eepromAddress": 1,
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true
-      }
-    },
-    {
-      "parentId": 0,
-      "type": "analogItem",
-      "item": {
-        "maxValue": 150,
-        "offset": 100,
-        "divisor": 1,
-        "unitName": "C",
-        "name": "Setpoint",
-        "variableName": "Temperature",
-        "id": 1,
-        "eepromAddress": 2,
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true
-      }
-    },
-    {
-      "parentId": 0,
-      "type": "analogItem",
-      "item": {
-        "maxValue": 300,
-        "offset": 0,
-        "divisor": 1,
-        "unitName": "C",
+        "numDecimalPlaces": 2,
         "name": "Actual Temp",
         "variableName": "ActualTemp",
-        "id": 17,
+        "id": 24,
         "eepromAddress": -1,
         "readOnly": true,
         "localOnly": false,
@@ -71,15 +35,57 @@
     {
       "parentId": 0,
       "type": "analogItem",
+      "defaultValue": "0",
+      "item": {
+        "maxValue": 149,
+        "offset": 1,
+        "divisor": 10,
+        "unitName": "mm s",
+        "step": 1,
+        "name": "Feed",
+        "variableName": "Feed",
+        "id": 2,
+        "eepromAddress": 2,
+        "functionName": "onGearboxChange",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "analogItem",
+      "defaultValue": "100",
+      "item": {
+        "maxValue": 150,
+        "offset": 100,
+        "divisor": 1,
+        "unitName": "C",
+        "step": 1,
+        "name": "Setpoint",
+        "variableName": "Temperature",
+        "id": 3,
+        "eepromAddress": 4,
+        "functionName": "onTemperatureChange",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "analogItem",
+      "defaultValue": "100",
       "item": {
         "maxValue": 100,
         "offset": 0,
         "divisor": 1,
         "unitName": "%",
+        "step": 1,
         "name": "Fan",
         "variableName": "Fan",
-        "id": 10,
-        "eepromAddress": 3,
+        "id": 5,
+        "eepromAddress": 6,
         "readOnly": false,
         "localOnly": false,
         "visible": true
@@ -92,7 +98,7 @@
         "secured": false,
         "name": "Settings",
         "variableName": "",
-        "id": 5,
+        "id": 6,
         "eepromAddress": -1,
         "readOnly": false,
         "localOnly": false,
@@ -100,15 +106,164 @@
       }
     },
     {
-      "parentId": 5,
-      "type": "textItem",
+      "parentId": 6,
+      "type": "subMenu",
       "item": {
-        "textLength": 5,
+        "secured": false,
+        "name": "Gearbox",
+        "variableName": "SettingsGearbox",
+        "id": 9,
+        "eepromAddress": -1,
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 9,
+      "type": "analogItem",
+      "defaultValue": "196",
+      "item": {
+        "maxValue": 396,
+        "offset": 4,
+        "divisor": 1,
+        "unitName": "Step",
+        "step": 1,
+        "name": "MotorSteps",
+        "variableName": "SettingsMotorSteps",
+        "id": 10,
+        "eepromAddress": 8,
+        "functionName": "onGearboxChange",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 9,
+      "type": "analogItem",
+      "defaultValue": "60",
+      "item": {
+        "maxValue": 200,
+        "offset": 0,
+        "divisor": 2,
+        "unitName": "to1",
+        "step": 1,
+        "name": "GearboxRatio",
+        "variableName": "SettingsGearboxRatio",
+        "id": 11,
+        "eepromAddress": 10,
+        "functionName": "onGearboxChange",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 9,
+      "type": "analogItem",
+      "defaultValue": "49",
+      "item": {
+        "maxValue": 499,
+        "offset": 1,
+        "divisor": 1,
+        "unitName": "mm",
+        "step": 1,
+        "name": "SpoolRadius",
+        "variableName": "SettingsSpoolRadius",
+        "id": 12,
+        "eepromAddress": 12,
+        "functionName": "onGearboxChange",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 9,
+      "type": "analogItem",
+      "defaultValue": "500",
+      "item": {
+        "maxValue": 1900,
+        "offset": 100,
+        "divisor": 1,
+        "unitName": "mA",
+        "step": 1,
+        "name": "MotorCurrent",
+        "variableName": "SettingsGearboxMotorCurrent",
+        "id": 14,
+        "eepromAddress": 16,
+        "functionName": "onMotorCurrent",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 9,
+      "type": "enumItem",
+      "defaultValue": "4",
+      "item": {
+        "enumEntries": [
+          "0",
+          "2",
+          "4",
+          "8",
+          "16",
+          "32",
+          "64"
+        ],
+        "name": "Microsteps",
+        "variableName": "SettingsGearboxMicrosteps",
+        "id": 26,
+        "eepromAddress": 36,
+        "functionName": "onGearboxChange",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 9,
+      "type": "boolItem",
+      "defaultValue": "false",
+      "item": {
+        "naming": "TRUE_FALSE",
+        "name": "Reverse",
+        "variableName": "Reverse",
+        "id": 27,
+        "eepromAddress": 39,
+        "functionName": "onGearboxChange",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 6,
+      "type": "subMenu",
+      "item": {
+        "secured": false,
+        "name": "Personalisation",
+        "variableName": "SettingsPersonalisation",
+        "id": 21,
+        "eepromAddress": -1,
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 21,
+      "type": "textItem",
+      "defaultValue": "",
+      "item": {
+        "textLength": 10,
         "itemType": "PLAIN_TEXT",
         "name": "User Name",
-        "variableName": "SettingsUserName",
-        "id": 7,
-        "eepromAddress": 16,
+        "variableName": "SettingsPersonalisationUserName",
+        "id": 22,
+        "eepromAddress": 18,
         "functionName": "onNameChanged",
         "readOnly": false,
         "localOnly": false,
@@ -116,117 +271,32 @@
       }
     },
     {
-      "parentId": 5,
-      "type": "largeNumItem",
-      "item": {
-        "digitsAllowed": 4,
-        "decimalPlaces": 0,
-        "negativeAllowed": false,
-        "name": "Serial Number",
-        "variableName": "SettingsSerialNumber",
-        "id": 8,
-        "eepromAddress": 7,
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true
-      }
-    },
-    {
-      "parentId": 5,
+      "parentId": 21,
       "type": "analogItem",
+      "defaultValue": "0",
       "item": {
         "maxValue": 999,
         "offset": 0,
         "divisor": 1,
         "unitName": "",
-        "name": "Serial Number2",
-        "variableName": "SettingsSerialNumber2",
-        "id": 11,
-        "eepromAddress": 8,
+        "step": 1,
+        "name": "Serial Number",
+        "variableName": "SettingsPersonalisationSerialNumber",
+        "id": 23,
+        "eepromAddress": 28,
         "readOnly": false,
         "localOnly": false,
         "visible": true
       }
     },
     {
-      "parentId": 5,
-      "type": "analogItem",
+      "parentId": 6,
+      "type": "subMenu",
       "item": {
-        "maxValue": 396,
-        "offset": 4,
-        "divisor": 1,
-        "unitName": "",
-        "name": "MotorSteps",
-        "variableName": "SettingsMotorSteps",
-        "id": 12,
-        "eepromAddress": 21,
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true
-      }
-    },
-    {
-      "parentId": 5,
-      "type": "analogItem",
-      "item": {
-        "maxValue": 99,
-        "offset": 1,
-        "divisor": 1,
-        "unitName": "to1",
-        "name": "GearboxRatio",
-        "variableName": "SettingsGearboxRatio",
-        "id": 13,
-        "eepromAddress": 23,
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true
-      }
-    },
-    {
-      "parentId": 5,
-      "type": "analogItem",
-      "item": {
-        "maxValue": 450,
-        "offset": 50,
-        "divisor": 1,
-        "unitName": "mm",
-        "name": "SpoolRadius",
-        "variableName": "SettingsSpoolRadius",
-        "id": 14,
-        "eepromAddress": 25,
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true
-      }
-    },
-    {
-      "parentId": 5,
-      "type": "analogItem",
-      "item": {
-        "maxValue": 63,
-        "offset": 1,
-        "divisor": 1,
-        "unitName": "",
-        "name": "Microsteps",
-        "variableName": "SettingsMicrosteps",
+        "secured": false,
+        "name": "Temperature",
+        "variableName": "SettingsTemperature",
         "id": 15,
-        "eepromAddress": 27,
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true
-      }
-    },
-    {
-      "parentId": 5,
-      "type": "analogItem",
-      "item": {
-        "maxValue": 1500,
-        "offset": 500,
-        "divisor": 1,
-        "unitName": "mA",
-        "name": "MotorCurrent",
-        "variableName": "SettingsMotorCurrent",
-        "id": 16,
         "eepromAddress": -1,
         "readOnly": false,
         "localOnly": false,
@@ -234,26 +304,12 @@
       }
     },
     {
-      "parentId": 5,
-      "type": "actionMenu",
-      "item": {
-        "name": "SaveSettings",
-        "variableName": "SettingsSaveSettings",
-        "id": 9,
-        "eepromAddress": -1,
-        "functionName": "onSaveSettings",
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true
-      }
-    },
-    {
-      "parentId": 5,
+      "parentId": 15,
       "type": "actionMenu",
       "item": {
         "name": "PIDTune",
-        "variableName": "SettingsPIDTune",
-        "id": 21,
+        "variableName": "SettingsTemperaturePIDTune",
+        "id": 16,
         "eepromAddress": -1,
         "functionName": "onPIDTune",
         "readOnly": false,
@@ -262,51 +318,74 @@
       }
     },
     {
-      "parentId": 5,
+      "parentId": 15,
       "type": "analogItem",
+      "defaultValue": "85",
       "item": {
         "maxValue": 10000,
         "offset": 0,
-        "divisor": 100,
-        "unitName": "",
+        "divisor": 10,
+        "unitName": "P",
+        "step": 1,
         "name": "Kp",
-        "variableName": "SettingsP",
-        "id": 18,
-        "eepromAddress": 29,
+        "variableName": "Kp",
+        "id": 17,
+        "eepromAddress": 30,
+        "functionName": "onPidChange",
         "readOnly": false,
         "localOnly": false,
         "visible": true
       }
     },
     {
-      "parentId": 5,
+      "parentId": 15,
       "type": "analogItem",
+      "defaultValue": "4",
       "item": {
         "maxValue": 10000,
         "offset": 0,
-        "divisor": 100,
-        "unitName": "",
+        "divisor": 10,
+        "unitName": "I",
+        "step": 1,
         "name": "Ki",
-        "variableName": "SettingsI",
-        "id": 19,
-        "eepromAddress": 31,
+        "variableName": "Ki",
+        "id": 18,
+        "eepromAddress": 32,
+        "functionName": "onPidChange",
         "readOnly": false,
         "localOnly": false,
         "visible": true
       }
     },
     {
-      "parentId": 5,
+      "parentId": 15,
       "type": "analogItem",
+      "defaultValue": "411",
       "item": {
         "maxValue": 10000,
         "offset": 0,
-        "divisor": 100,
-        "unitName": "",
+        "divisor": 10,
+        "unitName": "D",
+        "step": 1,
         "name": "Kd",
-        "variableName": "SettingsD",
+        "variableName": "Kd",
+        "id": 19,
+        "eepromAddress": 34,
+        "functionName": "onPidChange",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 6,
+      "type": "actionMenu",
+      "item": {
+        "name": "SaveSettings",
+        "variableName": "SettingsSaveSettings",
         "id": 20,
-        "eepromAddress": 33,
+        "eepromAddress": -1,
+        "functionName": "onSaveSettings",
         "readOnly": false,
         "localOnly": false,
         "visible": true
@@ -323,7 +402,7 @@
     ],
     "lastThemeUuid": "815316bb-76c9-436a-8f83-be0bced963df",
     "applicationUUID": "fddaa423-cb5c-4024-8f67-a9742f4457f3",
-    "applicationName": "  PolyFormer",
+    "applicationName": "PolyFormer",
     "lastProperties": [
       {
         "name": "DISPLAY_VARIABLE",
@@ -387,17 +466,17 @@
       },
       {
         "name": "ENCODER_PIN_A",
-        "latestValue": "PB13",
+        "latestValue": "encA",
         "subsystem": "INPUT"
       },
       {
         "name": "ENCODER_PIN_B",
-        "latestValue": "PB14",
+        "latestValue": "encB",
         "subsystem": "INPUT"
       },
       {
         "name": "ENCODER_PIN_OK",
-        "latestValue": "PB12",
+        "latestValue": "encSW",
         "subsystem": "INPUT"
       },
       {
