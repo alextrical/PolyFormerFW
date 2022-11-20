@@ -24,7 +24,7 @@ const char pgmTuning[] PROGMEM = "Tuning PID";
 #define NOMINAL_TEMPERATURE    25
 #define B_VALUE                3950
 
-#define fwVersion              0.14
+#define fwVersion              0.15
 
 //System Variables
 int error = 0; //Start with a clean sheet and no error /* 0=no error; 1=Heater decoupled during rising; 2=Heater decoupled during hold; 10=Over Temp; 11=Thermistor short; 12=No thermistor */

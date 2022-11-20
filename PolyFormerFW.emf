@@ -35,7 +35,7 @@
     {
       "parentId": 0,
       "type": "analogItem",
-      "defaultValue": "0",
+      "defaultValue": "49",
       "item": {
         "maxValue": 149,
         "offset": 1,
@@ -57,7 +57,7 @@
       "type": "analogItem",
       "defaultValue": "100",
       "item": {
-        "maxValue": 150,
+        "maxValue": 140,
         "offset": 100,
         "divisor": 1,
         "unitName": "C",
@@ -182,7 +182,7 @@
     {
       "parentId": 9,
       "type": "analogItem",
-      "defaultValue": "500",
+      "defaultValue": "600",
       "item": {
         "maxValue": 1900,
         "offset": 100,
@@ -320,7 +320,7 @@
     {
       "parentId": 15,
       "type": "analogItem",
-      "defaultValue": "85",
+      "defaultValue": "222",
       "item": {
         "maxValue": 10000,
         "offset": 0,
@@ -340,7 +340,7 @@
     {
       "parentId": 15,
       "type": "analogItem",
-      "defaultValue": "4",
+      "defaultValue": "11",
       "item": {
         "maxValue": 10000,
         "offset": 0,
@@ -360,7 +360,7 @@
     {
       "parentId": 15,
       "type": "analogItem",
-      "defaultValue": "41",
+      "defaultValue": "1140",
       "item": {
         "maxValue": 10000,
         "offset": 0,
