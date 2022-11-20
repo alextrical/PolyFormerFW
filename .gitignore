@@ -6,3 +6,4 @@
 .backup
 .kate-swp
 *.bin
+*.backup
