@@ -20,8 +20,8 @@
 
 // variables we declare that you may need to access
 extern const PROGMEM ConnectorLocalInfo applicationInfo;
-//extern U8G2_SSD1306_128X64_NONAME_F_HW_I2C gfx;
-extern U8G2_SH1106_128X64_NONAME_F_HW_I2C gfx;
+extern U8G2_SSD1306_128X64_NONAME_F_HW_I2C gfx;
+//extern U8G2_SH1106_128X64_NONAME_F_HW_I2C gfx;
 extern GraphicsDeviceRenderer renderer;
 
 // Any externals needed by IO expanders, EEPROMs etc

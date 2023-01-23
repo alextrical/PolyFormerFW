@@ -4,7 +4,8 @@ int microstep;
 
 //#define RMS_CURRENT       600     // Motor RMS current in mA
 //#define MICROSTEPS        0       // Microsteps; note that MicroPlyer will interpolate to 256
-#define SPREADCYCLE       false   // Spreadcycle can have higher RPM but is louder
+#define SPREADCYCLE       true   // Spreadcycle can have higher RPM but is louder
+#define STALL_VALUE     100 // [0..255]
 
 
 HardwareSerial Serial2(PA15, PA14_ALT1);
@@ -24,12 +25,22 @@ void stepperSetup()
   digitalWrite(stepperEnPin, LOW);            // Enable TMC2209 board
 
   driver.begin();
-  driver.toff(5);                       // Enables driver in software
-  //  driver.rms_current(RMS_CURRENT);      // Set motor RMS current (mA)
-  stepperMicrosteps();
+//  driver.toff(5);                       // Enables driver in software
+//  //  driver.rms_current(RMS_CURRENT);      // Set motor RMS current (mA)
+//  stepperMicrosteps();
+//  stepperCurrent();
+//  driver.en_spreadCycle(SPREADCYCLE);   // Toggle spreadCycle on TMC2208/2209/2224
+//  driver.pwm_autoscale(true);           // Needed for stealthChop
+  driver.toff(4);
+  driver.blank_time(24);
   stepperCurrent();
-  driver.en_spreadCycle(SPREADCYCLE);   // Toggle spreadCycle on TMC2208/2209/2224
-  driver.pwm_autoscale(true);           // Needed for stealthChop
+  stepperMicrosteps();
+  driver.TCOOLTHRS(0xFFFFF); // 20bit max
+  driver.semin(5);
+  driver.semax(2);
+  driver.sedn(0b01);
+  driver.SGTHRS(STALL_VALUE);
+  
 }
 
 void stepperSppeed()

@@ -92,8 +92,19 @@ void pidTune() {
   tuner.startTuningLoop(millis());
   //  pidTuneLoop();
 
+  //  menuMgr.navigateToMenu(&rootMenuItem(), &menuSettings)
+  menuMgr.resetMenu(true);
+
+  auto* dlg = renderer.getDialog();
+  if (dlg && !dlg->isInUse()) {
+    dlg->setButtons(BTNTYPE_NONE, BTNTYPE_OK);
+    dlg->show(pgmTuning, false);
+    dlg->copyIntoBuffer("Tuning ~10 minutes");
+  }
+
   // Run a loop until tuner.isFinished() returns true
   while (!tuner.isFinished()) { //-----------------------------------------------While loop
+    
     // This loop must run at the same speed as the PID control loop being tuned
     long prevMilliseconds = milliseconds;
     milliseconds = millis();
@@ -116,10 +127,13 @@ void pidTune() {
     Serial.print("Temperature: "); Serial.print(Input); Serial.print(" Output: "); Serial.println(output);
 
     // This loop must run at the same speed as the PID control loop being tuned
-    while (millis() - milliseconds < pidLoopInterval) delayMicroseconds(1);
+    while (millis() - milliseconds < pidLoopInterval) {
+      taskManager.runLoop(); //Call Display manager
+      delayMicroseconds(1);
+    }
   }
 
-  auto* dlg = renderer.getDialog();
+  //auto* dlg = renderer.getDialog();
   if (dlg && !dlg->isInUse()) {
     dlg->setButtons(BTNTYPE_NONE, BTNTYPE_OK);
     dlg->show(pgmTuning, false);

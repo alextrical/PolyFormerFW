@@ -22,27 +22,28 @@ void SerialLoop() {
 
 void SerialSend()
 {
-  //    Serial.print("setpoint: "); Serial.print(targetTemperatureC); Serial.print(" ");
-  //    Serial.print("input: "); Serial.print(currentTemperatureC); Serial.print(" ");
-  //    Serial.print("output: "); Serial.print(Output); Serial.print(" ");
-  //  Serial.println();
-  //  Serial.println(menuSettingsMotorSteps.getAsFloatingPointValue());
-  //  Serial.println(menuSettingsGearboxRatio.getAsFloatingPointValue());
-  //  Serial.println(menuSettingsSpoolRadius.getAsFloatingPointValue());
-  //  Serial.println(menuSettingsMicrosteps.getAsFloatingPointValue());
+      Serial.print("setpoint: "); Serial.print(Setpoint); Serial.print(" ");
+      Serial.print("input: "); Serial.print(Input); Serial.print(" ");
+      Serial.print("output: "); Serial.print(Output); Serial.print(" ");
+    Serial.println();
+    Serial.println(menuSettingsMotorSteps.getAsFloatingPointValue());
+    Serial.println(menuSettingsGearboxRatio.getAsFloatingPointValue());
+    Serial.println(menuSettingsSpoolRadius.getAsFloatingPointValue());
+    Serial.println(menuSettingsGearboxMicrosteps.getCurrentValue());
+    Serial.println(menuSettingsGearboxMotorCurrent.getAsFloatingPointValue());
 
-  //  Serial.print(therm.getTemp());
+    Serial.print(therm.getTemp());
 
-  //  Serial.println(celsius);
+    Serial.println(celsius);
 
-  //  //  if (tuning) {
-  //  //    Serial.println("tuning mode");
-  //  //  } else {
-  //  //    //    Serial.print("kp: ");Serial.print(heaterPID.GetKp());Serial.print(" ");
-  //  //    //    Serial.print("ki: ");Serial.print(heaterPID.GetKi());Serial.print(" ");
-  //  //    //    Serial.print("kd: ");Serial.print(heaterPID.GetKd());
-  //  //    Serial.println();
-  //  //  }
+//      if (tuning) {
+//        Serial.println("tuning mode");
+//      } else {
+//        //    Serial.print("kp: ");Serial.print(heaterPID.GetKp());Serial.print(" ");
+//        //    Serial.print("ki: ");Serial.print(heaterPID.GetKi());Serial.print(" ");
+//        //    Serial.print("kd: ");Serial.print(heaterPID.GetKd());
+//        Serial.println();
+//      }
 }
 
 void SerialReceive()

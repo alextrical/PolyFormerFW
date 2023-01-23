@@ -188,7 +188,7 @@
         "offset": 100,
         "divisor": 1,
         "unitName": "mA",
-        "step": 1,
+        "step": 50,
         "name": "MotorCurrent",
         "variableName": "SettingsGearboxMotorCurrent",
         "id": 14,
@@ -226,7 +226,7 @@
     {
       "parentId": 9,
       "type": "boolItem",
-      "defaultValue": "false",
+      "defaultValue": "true",
       "item": {
         "naming": "TRUE_FALSE",
         "name": "Reverse",
@@ -455,6 +455,11 @@
         "subsystem": "DISPLAY"
       },
       {
+        "name": "USE_UTF8_SUPPORT",
+        "latestValue": "false",
+        "subsystem": "DISPLAY"
+      },
+      {
         "name": "SW_POLLING_MODE",
         "latestValue": "SWITCHES_NO_POLLING",
         "subsystem": "INPUT"
@@ -466,12 +471,12 @@
       },
       {
         "name": "ENCODER_PIN_A",
-        "latestValue": "encA",
+        "latestValue": "encB",
         "subsystem": "INPUT"
       },
       {
         "name": "ENCODER_PIN_B",
-        "latestValue": "encB",
+        "latestValue": "encA",
         "subsystem": "INPUT"
       },
       {
@@ -522,6 +527,11 @@
       {
         "name": "TITLE_SHOW_MODE",
         "latestValue": "TITLE_FIRST_ROW",
+        "subsystem": "THEME"
+      },
+      {
+        "name": "USE_TC_UNICODE",
+        "latestValue": "false",
         "subsystem": "THEME"
       }
     ],
