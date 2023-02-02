@@ -22,7 +22,7 @@ const char pgmTuning[] PROGMEM = "Tuning PID";
 #define REFERENCE_RESISTANCE   4700
 #define NOMINAL_RESISTANCE     100000
 #define NOMINAL_TEMPERATURE    25
-#define B_VALUE                4267 //104GT-2         //3950 //B3950
+#define B_VALUE                4388 //104GT-2 alternative //4267 //104GT-2         //3950 //B3950
 
 #define fwVersion              0.16
 

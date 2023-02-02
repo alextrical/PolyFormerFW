@@ -19,14 +19,14 @@ void fanSetup() {
 
 void fanLoop() {
   if (error == 0) {
-        if (therm.getTemp() >= meltzoneFanTemp /*|| targetTemperatureC >= meltzoneFanTemp*/ )
-        {
-    analogWrite(meltzoneFanPin, menuFan.getAsFloatingPointValue() * 2.55);
-    fan1 = true;
-        } else {
-          digitalWrite(meltzoneFanPin, LOW);
-          fan1 = false;
-        }
+    if (therm.getTemp() >= meltzoneFanTemp /*|| targetTemperatureC >= meltzoneFanTemp*/ )
+    {
+      analogWrite(meltzoneFanPin, menuFan.getAsFloatingPointValue() * 2.55);
+      fan1 = true;
+    } else {
+      digitalWrite(meltzoneFanPin, LOW);
+      fan1 = false;
+    }
   } else {
     digitalWrite(meltzoneFanPin, HIGH); //Error detected, run fan at full power.
     fan1 = true;

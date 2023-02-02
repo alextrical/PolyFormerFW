@@ -205,13 +205,15 @@
       "defaultValue": "4",
       "item": {
         "enumEntries": [
-          "0",
+          "1",
           "2",
           "4",
           "8",
           "16",
           "32",
-          "64"
+          "64",
+          "128",
+          "256"
         ],
         "name": "Microsteps",
         "variableName": "SettingsGearboxMicrosteps",
@@ -235,6 +237,187 @@
         "eepromAddress": 39,
         "functionName": "onGearboxChange",
         "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 9,
+      "type": "analogItem",
+      "defaultValue": "3",
+      "item": {
+        "maxValue": 255,
+        "offset": 1,
+        "divisor": 1,
+        "unitName": "",
+        "step": 1,
+        "name": "Toff",
+        "variableName": "SettingsGearboxToff",
+        "id": 28,
+        "eepromAddress": 40,
+        "functionName": "onGearboxChange",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 9,
+      "type": "analogItem",
+      "defaultValue": "0",
+      "item": {
+        "maxValue": 255,
+        "offset": 1,
+        "divisor": 1,
+        "unitName": "",
+        "step": 1,
+        "name": "BlankTime",
+        "variableName": "SettingsGearboxBlankTime",
+        "id": 29,
+        "eepromAddress": 42,
+        "functionName": "onGearboxChange",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 9,
+      "type": "analogItem",
+      "defaultValue": "5",
+      "item": {
+        "maxValue": 255,
+        "offset": 0,
+        "divisor": 1,
+        "unitName": "",
+        "step": 1,
+        "name": "SeMin",
+        "variableName": "SettingsGearboxSeMin",
+        "id": 30,
+        "eepromAddress": 44,
+        "functionName": "onGearboxChange",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 9,
+      "type": "analogItem",
+      "defaultValue": "2",
+      "item": {
+        "maxValue": 255,
+        "offset": 0,
+        "divisor": 1,
+        "unitName": "",
+        "step": 1,
+        "name": "SeMax",
+        "variableName": "SettingsGearboxSeMax",
+        "id": 31,
+        "eepromAddress": 46,
+        "functionName": "onGearboxChange",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 9,
+      "type": "analogItem",
+      "defaultValue": "0",
+      "item": {
+        "maxValue": 1,
+        "offset": 0,
+        "divisor": 1,
+        "unitName": "",
+        "step": 1,
+        "name": "IScaleAnalog",
+        "variableName": "SettingsGearboxIScaleAnalog",
+        "id": 32,
+        "eepromAddress": 48,
+        "functionName": "onGearboxChange",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 9,
+      "type": "boolItem",
+      "defaultValue": "true",
+      "item": {
+        "naming": "TRUE_FALSE",
+        "name": "Stealth",
+        "variableName": "SettingsGearboxStealth",
+        "id": 33,
+        "eepromAddress": 50,
+        "functionName": "onGearboxChange",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 9,
+      "type": "analogItem",
+      "defaultValue": "100",
+      "item": {
+        "maxValue": 255,
+        "offset": 0,
+        "divisor": 1,
+        "unitName": "",
+        "step": 1,
+        "name": "StallValue",
+        "variableName": "SettingsGearboxStallValue",
+        "id": 34,
+        "eepromAddress": 51,
+        "functionName": "onGearboxChange",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 9,
+      "type": "floatItem",
+      "defaultValue": "0.0",
+      "item": {
+        "numDecimalPlaces": 3,
+        "name": "SG_RESULT",
+        "variableName": "SettingsGearboxSGRESULT",
+        "id": 35,
+        "eepromAddress": -1,
+        "readOnly": true,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 9,
+      "type": "floatItem",
+      "defaultValue": "0.0",
+      "item": {
+        "numDecimalPlaces": 3,
+        "name": "cs_actual",
+        "variableName": "SettingsGearboxCsActual",
+        "id": 36,
+        "eepromAddress": -1,
+        "readOnly": true,
+        "localOnly": false,
+        "visible": true
+      }
+    },
+    {
+      "parentId": 9,
+      "type": "floatItem",
+      "defaultValue": "0.0",
+      "item": {
+        "numDecimalPlaces": 3,
+        "name": "cs2rms",
+        "variableName": "SettingsGearboxCs2rms",
+        "id": 37,
+        "eepromAddress": -1,
+        "readOnly": true,
         "localOnly": false,
         "visible": true
       }
@@ -267,7 +450,7 @@
         "functionName": "onNameChanged",
         "readOnly": false,
         "localOnly": false,
-        "visible": true
+        "visible": false
       }
     },
     {
@@ -286,7 +469,7 @@
         "eepromAddress": 28,
         "readOnly": false,
         "localOnly": false,
-        "visible": true
+        "visible": false
       }
     },
     {
@@ -471,12 +654,12 @@
       },
       {
         "name": "ENCODER_PIN_A",
-        "latestValue": "encB",
+        "latestValue": "encA",
         "subsystem": "INPUT"
       },
       {
         "name": "ENCODER_PIN_B",
-        "latestValue": "encA",
+        "latestValue": "encB",
         "subsystem": "INPUT"
       },
       {
@@ -541,7 +724,8 @@
     "eepromDefinition": "eeprom:",
     "authenticatorDefinition": "",
     "projectIoExpanders": [
-      "deviceIO:"
+      "deviceIO:",
+      "pcf8574:IO:32:-1:false"
     ],
     "menuInMenuCollection": {
       "menuDefinitions": []

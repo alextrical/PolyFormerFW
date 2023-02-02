@@ -31,15 +31,17 @@ void stepperSetup()
 //  stepperCurrent();
 //  driver.en_spreadCycle(SPREADCYCLE);   // Toggle spreadCycle on TMC2208/2209/2224
 //  driver.pwm_autoscale(true);           // Needed for stealthChop
-  driver.toff(4);
-  driver.blank_time(24);
+
+  driver.toff(menuSettingsGearboxToff.getCurrentValue()); //4
+  // driver.blank_time(menuSettingsGearboxblankTime.getCurrentValue()); //24
   stepperCurrent();
   stepperMicrosteps();
   driver.TCOOLTHRS(0xFFFFF); // 20bit max
-  driver.semin(5);
-  driver.semax(2);
+  driver.semin(menuSettingsGearboxSeMin.getCurrentValue()); //5
+  driver.semax(menuSettingsGearboxSeMax.getCurrentValue()); //2
   driver.sedn(0b01);
-  driver.SGTHRS(STALL_VALUE);
+  driver.SGTHRS(menuSettingsGearboxStallValue.getCurrentValue());
+  driver.I_scale_analog(menuSettingsGearboxIScaleAnalog.getCurrentValue());
   
 }
 
@@ -48,12 +50,8 @@ void stepperSppeed()
   driver.shaft(menuReverse.getCurrentValue()); // SET DIRECTION
   stepperMicrosteps();
   int32_t dest_speed;
-  if (runSystem) {
-    if (microstep > 0) {
-      dest_speed = microstep * menuFeed.getAsFloatingPointValue() * menuSettingsMotorSteps.getAsFloatingPointValue() * menuSettingsGearboxRatio.getAsFloatingPointValue() / (3.1459 * menuSettingsSpoolRadius.getAsFloatingPointValue());
-    } else {
-      dest_speed =             menuFeed.getAsFloatingPointValue() * menuSettingsMotorSteps.getAsFloatingPointValue() * menuSettingsGearboxRatio.getAsFloatingPointValue() / (3.1459 * menuSettingsSpoolRadius.getAsFloatingPointValue());
-    }
+  if (runSystem && therm.getTemp() > (menuTemperature.getAsFloatingPointValue() - 10)) { //run only if temperature is within 10C of setpoint
+    dest_speed = microstep * menuFeed.getAsFloatingPointValue() * menuSettingsMotorSteps.getCurrentValue() * menuSettingsGearboxRatio.getAsFloatingPointValue() / (3.1459 * menuSettingsSpoolRadius.getCurrentValue());
   } else {
     dest_speed = 0;
   }
@@ -67,31 +65,30 @@ void stepperMicrosteps() {
   switch (menuSettingsGearboxMicrosteps.getCurrentValue()) {
     case 1:
       microstep = 2;
-      // statements
       break;
     case 2:
       microstep = 4;
-      // statements
       break;
     case 3:
       microstep = 8;
-      // statements
       break;
     case 4:
       microstep = 16;
-      // statements
       break;
     case 5:
       microstep = 32;
-      // statements
       break;
     case 6:
       microstep = 64;
-      // statements
+      break;
+    case 7:
+      microstep = 128;
+      break;
+    case 8:
+      microstep = 256;
       break;
     default:
-      microstep = 0;
-      // statements
+      microstep = 1;
       break;
   }
   Serial.print("Microsteps: ");
@@ -100,5 +97,18 @@ void stepperMicrosteps() {
 }
 
 void stepperCurrent() {
-  driver.rms_current(menuSettingsGearboxMotorCurrent.getAsFloatingPointValue());      // Set motor RMS current (mA)
+  driver.rms_current(menuSettingsGearboxMotorCurrent.getCurrentValue());      // Set motor RMS current (mA)
+}
+
+void updateStepperDisplay() {
+    Serial.print("0 ");
+    Serial.print(driver.SG_RESULT(), DEC);
+    Serial.print(" ");
+    Serial.print(driver.cs_actual(), DEC);
+    Serial.print(" ");
+    Serial.println(driver.cs2rms(driver.cs_actual()), DEC);
+
+    menuSettingsGearboxSGRESULT.setFloatValue(driver.SG_RESULT(), DEC);
+    menuSettingsGearboxCsActual.setFloatValue(driver.cs_actual(), DEC);
+    menuSettingsGearboxCs2rms.setFloatValue(driver.cs2rms(driver.cs_actual()), DEC);
 }

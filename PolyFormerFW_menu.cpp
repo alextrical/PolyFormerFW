@@ -15,8 +15,8 @@
 // Global variable declarations
 const  ConnectorLocalInfo applicationInfo = { "PolyFormer", "fddaa423-cb5c-4024-8f67-a9742f4457f3" };
 ArduinoEEPROMAbstraction glArduinoEeprom(&EEPROM);
-U8G2_SSD1306_128X64_NONAME_F_HW_I2C gfx(U8G2_R2, U8X8_PIN_NONE, U8X8_PIN_NONE, U8X8_PIN_NONE);
-//U8G2_SH1106_128X64_NONAME_F_HW_I2C gfx(U8G2_R2, /* reset=*/ U8X8_PIN_NONE);
+//U8G2_SSD1306_128X64_NONAME_F_HW_I2C gfx(U8G2_R2, U8X8_PIN_NONE, U8X8_PIN_NONE, U8X8_PIN_NONE);
+U8G2_SH1106_128X64_NONAME_F_HW_I2C gfx(U8G2_R2, /* reset=*/ U8X8_PIN_NONE);
 U8g2Drawable gfxDrawable(&gfx, &Wire);
 GraphicsDeviceRenderer renderer(30, applicationInfo.name, &gfxDrawable);
 #define encA            PB7
@@ -46,17 +46,39 @@ RENDERING_CALLBACK_NAME_INVOKE(fnSettingsPersonalisationRtCall, backSubItemRende
 const SubMenuInfo minfoSettingsPersonalisation = { "Personalisation", 21, 0xffff, 0, NO_CALLBACK };
 BackMenuItem menuBackSettingsPersonalisation(fnSettingsPersonalisationRtCall, &menuSettingsPersonalisationUserName);
 SubMenuItem menuSettingsPersonalisation(&minfoSettingsPersonalisation, &menuBackSettingsPersonalisation, &menuSettingsTemperature);
+const FloatMenuInfo minfoSettingsGearboxCs2rms = { "cs2rms", 37, 0xffff, 3, NO_CALLBACK };
+FloatMenuItem menuSettingsGearboxCs2rms(&minfoSettingsGearboxCs2rms, 0.0, NULL);
+const FloatMenuInfo minfoSettingsGearboxCsActual = { "cs_actual", 36, 0xffff, 3, NO_CALLBACK };
+FloatMenuItem menuSettingsGearboxCsActual(&minfoSettingsGearboxCsActual, 0.0, &menuSettingsGearboxCs2rms);
+const FloatMenuInfo minfoSettingsGearboxSGRESULT = { "SG_RESULT", 35, 0xffff, 3, NO_CALLBACK };
+FloatMenuItem menuSettingsGearboxSGRESULT(&minfoSettingsGearboxSGRESULT, 0.0, &menuSettingsGearboxCsActual);
+const AnalogMenuInfo minfoSettingsGearboxStallValue = { "StallValue", 34, 51, 255, onGearboxChange, 0, 1, "" };
+AnalogMenuItem menuSettingsGearboxStallValue(&minfoSettingsGearboxStallValue, 100, &menuSettingsGearboxSGRESULT);
+const BooleanMenuInfo minfoSettingsGearboxStealth = { "Stealth", 33, 50, 1, onGearboxChange, NAMING_TRUE_FALSE };
+BooleanMenuItem menuSettingsGearboxStealth(&minfoSettingsGearboxStealth, true, &menuSettingsGearboxStallValue);
+const AnalogMenuInfo minfoSettingsGearboxIScaleAnalog = { "IScaleAnalog", 32, 48, 1, onGearboxChange, 0, 1, "" };
+AnalogMenuItem menuSettingsGearboxIScaleAnalog(&minfoSettingsGearboxIScaleAnalog, 0, &menuSettingsGearboxStealth);
+const AnalogMenuInfo minfoSettingsGearboxSeMax = { "SeMax", 31, 46, 255, onGearboxChange, 0, 1, "" };
+AnalogMenuItem menuSettingsGearboxSeMax(&minfoSettingsGearboxSeMax, 2, &menuSettingsGearboxIScaleAnalog);
+const AnalogMenuInfo minfoSettingsGearboxSeMin = { "SeMin", 30, 44, 255, onGearboxChange, 0, 1, "" };
+AnalogMenuItem menuSettingsGearboxSeMin(&minfoSettingsGearboxSeMin, 5, &menuSettingsGearboxSeMax);
+const AnalogMenuInfo minfoSettingsGearboxBlankTime = { "BlankTime", 29, 42, 255, onGearboxChange, 1, 1, "" };
+AnalogMenuItem menuSettingsGearboxBlankTime(&minfoSettingsGearboxBlankTime, 0, &menuSettingsGearboxSeMin);
+const AnalogMenuInfo minfoSettingsGearboxToff = { "Toff", 28, 40, 255, onGearboxChange, 1, 1, "" };
+AnalogMenuItem menuSettingsGearboxToff(&minfoSettingsGearboxToff, 3, &menuSettingsGearboxBlankTime);
 const BooleanMenuInfo minfoReverse = { "Reverse", 27, 39, 1, onGearboxChange, NAMING_TRUE_FALSE };
-BooleanMenuItem menuReverse(&minfoReverse, true, NULL);
-const char enumStrSettingsGearboxMicrosteps_0[] = "0";
+BooleanMenuItem menuReverse(&minfoReverse, true, &menuSettingsGearboxToff);
+const char enumStrSettingsGearboxMicrosteps_0[] = "1";
 const char enumStrSettingsGearboxMicrosteps_1[] = "2";
 const char enumStrSettingsGearboxMicrosteps_2[] = "4";
 const char enumStrSettingsGearboxMicrosteps_3[] = "8";
 const char enumStrSettingsGearboxMicrosteps_4[] = "16";
 const char enumStrSettingsGearboxMicrosteps_5[] = "32";
 const char enumStrSettingsGearboxMicrosteps_6[] = "64";
-const char* const enumStrSettingsGearboxMicrosteps[]  = { enumStrSettingsGearboxMicrosteps_0, enumStrSettingsGearboxMicrosteps_1, enumStrSettingsGearboxMicrosteps_2, enumStrSettingsGearboxMicrosteps_3, enumStrSettingsGearboxMicrosteps_4, enumStrSettingsGearboxMicrosteps_5, enumStrSettingsGearboxMicrosteps_6 };
-const EnumMenuInfo minfoSettingsGearboxMicrosteps = { "Microsteps", 26, 36, 6, onGearboxChange, enumStrSettingsGearboxMicrosteps };
+const char enumStrSettingsGearboxMicrosteps_7[] = "128";
+const char enumStrSettingsGearboxMicrosteps_8[] = "256";
+const char* const enumStrSettingsGearboxMicrosteps[]  = { enumStrSettingsGearboxMicrosteps_0, enumStrSettingsGearboxMicrosteps_1, enumStrSettingsGearboxMicrosteps_2, enumStrSettingsGearboxMicrosteps_3, enumStrSettingsGearboxMicrosteps_4, enumStrSettingsGearboxMicrosteps_5, enumStrSettingsGearboxMicrosteps_6, enumStrSettingsGearboxMicrosteps_7, enumStrSettingsGearboxMicrosteps_8 };
+const EnumMenuInfo minfoSettingsGearboxMicrosteps = { "Microsteps", 26, 36, 8, onGearboxChange, enumStrSettingsGearboxMicrosteps };
 EnumMenuItem menuSettingsGearboxMicrosteps(&minfoSettingsGearboxMicrosteps, 4, &menuReverse);
 const AnalogMenuInfo minfoSettingsGearboxMotorCurrent = { "MotorCurrent", 14, 16, 1900, onMotorCurrent, 100, 1, "mA" };
 AnalogMenuItem menuSettingsGearboxMotorCurrent(&minfoSettingsGearboxMotorCurrent, 600, &menuSettingsGearboxMicrosteps);
@@ -90,14 +112,20 @@ void setupMenu() {
     menuMgr.setEepromRef(&glArduinoEeprom);
     // Now add any readonly, non-remote and visible flags.
     menuActualTemp.setReadOnly(true);
+    menuSettingsGearboxCsActual.setReadOnly(true);
+    menuSettingsGearboxCs2rms.setReadOnly(true);
+    menuSettingsGearboxSGRESULT.setReadOnly(true);
+    menuSettingsPersonalisationSerialNumber.setVisible(false);
+    menuSettingsPersonalisationUserName.setVisible(false);
     menuSettingsGearboxMotorCurrent.setStep(50);
 
     // Code generated by plugins.
     gfx.begin();
     renderer.setUpdatesPerSecond(10);
     switches.init(internalDigitalIo(), SWITCHES_NO_POLLING, true);
-    menuMgr.initForEncoder(&renderer, &menuStart, encB, encA, encSW);
+    menuMgr.initForEncoder(&renderer, &menuStart, encA, encB, encSW);
     renderer.setTitleMode(BaseGraphicalRenderer::TITLE_FIRST_ROW);
     renderer.setUseSliderForAnalog(false);
     installMonoBorderedTheme(renderer, MenuFontDef(nullptr, 1), MenuFontDef(u8g2_font_finderskeepers_tf, 1), true);
 }
+

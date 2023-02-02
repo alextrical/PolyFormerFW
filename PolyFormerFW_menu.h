@@ -20,8 +20,8 @@
 
 // variables we declare that you may need to access
 extern const PROGMEM ConnectorLocalInfo applicationInfo;
-extern U8G2_SSD1306_128X64_NONAME_F_HW_I2C gfx;
-//extern U8G2_SH1106_128X64_NONAME_F_HW_I2C gfx;
+//extern U8G2_SSD1306_128X64_NONAME_F_HW_I2C gfx;
+extern U8G2_SH1106_128X64_NONAME_F_HW_I2C gfx;
 extern GraphicsDeviceRenderer renderer;
 
 // Any externals needed by IO expanders, EEPROMs etc
@@ -39,6 +39,16 @@ extern AnalogMenuItem menuSettingsPersonalisationSerialNumber;
 extern TextMenuItem menuSettingsPersonalisationUserName;
 extern BackMenuItem menuBackSettingsPersonalisation;
 extern SubMenuItem menuSettingsPersonalisation;
+extern FloatMenuItem menuSettingsGearboxCs2rms;
+extern FloatMenuItem menuSettingsGearboxCsActual;
+extern FloatMenuItem menuSettingsGearboxSGRESULT;
+extern AnalogMenuItem menuSettingsGearboxStallValue;
+extern BooleanMenuItem menuSettingsGearboxStealth;
+extern AnalogMenuItem menuSettingsGearboxIScaleAnalog;
+extern AnalogMenuItem menuSettingsGearboxSeMax;
+extern AnalogMenuItem menuSettingsGearboxSeMin;
+extern AnalogMenuItem menuSettingsGearboxBlankTime;
+extern AnalogMenuItem menuSettingsGearboxToff;
 extern BooleanMenuItem menuReverse;
 extern EnumMenuItem menuSettingsGearboxMicrosteps;
 extern AnalogMenuItem menuSettingsGearboxMotorCurrent;

@@ -30,11 +30,21 @@ void SerialSend()
     Serial.println(menuSettingsGearboxRatio.getAsFloatingPointValue());
     Serial.println(menuSettingsSpoolRadius.getAsFloatingPointValue());
     Serial.println(menuSettingsGearboxMicrosteps.getCurrentValue());
-    Serial.println(menuSettingsGearboxMotorCurrent.getAsFloatingPointValue());
+    Serial.println(menuSettingsGearboxMotorCurrent.getCurrentValue());
 
-    Serial.print(therm.getTemp());
+    Serial.println(therm.getTemp());
+    updateStepperDisplay();
 
-    Serial.println(celsius);
+    // Serial.print("0 ");
+    // Serial.print(driver.SG_RESULT(), DEC);
+    // Serial.print(" ");
+    // Serial.print(driver.cs_actual(), DEC);
+    // Serial.print(" ");
+    // Serial.println(driver.cs2rms(driver.cs_actual()), DEC);
+
+    // menuSettingsGearboxSG_RESULT.setFloatValue(driver.SG_RESULT(), DEC);
+    // menuSettingsGearboxcs_actual.setFloatValue(driver.cs_actual(), DEC);
+    // menuSettingsGearboxcs2rms.setFloatValue(driver.cs2rms(driver.cs_actual()), DEC);
 
 //      if (tuning) {
 //        Serial.println("tuning mode");
