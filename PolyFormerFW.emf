@@ -57,7 +57,7 @@
       "type": "analogItem",
       "defaultValue": "100",
       "item": {
-        "maxValue": 140,
+        "maxValue": 200,
         "offset": 100,
         "divisor": 1,
         "unitName": "C",
@@ -724,8 +724,8 @@
     "eepromDefinition": "eeprom:",
     "authenticatorDefinition": "",
     "projectIoExpanders": [
-      "deviceIO:",
-      "pcf8574:IO:32:-1:false"
+      "pcf8574:IO:32:-1:false",
+      "deviceIO:"
     ],
     "menuInMenuCollection": {
       "menuDefinitions": []
