@@ -43,6 +43,7 @@ void stepperSetup()
   driver.SGTHRS(menuSettingsGearboxStallValue.getCurrentValue());
   driver.I_scale_analog(menuSettingsGearboxIScaleAnalog.getCurrentValue());
   
+  
 }
 
 void stepperSppeed()
@@ -50,7 +51,7 @@ void stepperSppeed()
   driver.shaft(menuReverse.getCurrentValue()); // SET DIRECTION
   stepperMicrosteps();
   int32_t dest_speed;
-  if (runSystem && therm.getTemp() > (menuTemperature.getAsFloatingPointValue() - 10)) { //run only if temperature is within 10C of setpoint
+  if (runSystem && f_ReadTemp_ThABC(thermistorPin, REFERENCE_RESISTANCE, TA1, TB1, TC1) > (menuTemperature.getAsFloatingPointValue() - 10)) { //run only if temperature is within 10C of setpoint
     dest_speed = microstep * menuFeed.getAsFloatingPointValue() * menuSettingsMotorSteps.getCurrentValue() * menuSettingsGearboxRatio.getAsFloatingPointValue() / (3.1459 * menuSettingsSpoolRadius.getCurrentValue());
   } else {
     dest_speed = 0;

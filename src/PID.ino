@@ -16,7 +16,7 @@ PID myPID(&Input, &Output, &Setpoint, menuKp.getAsFloatingPointValue(), menuKi.g
 void pidSetup()
 {
   //initialize the variables we're linked to
-  Input = therm.getTemp();
+  Input = f_ReadTemp_ThABC(thermistorPin, REFERENCE_RESISTANCE, TA1, TB1, TC1);
   Setpoint = menuTemperature.getAsFloatingPointValue();
 
   //apply PID gains
@@ -31,7 +31,7 @@ void pidLoop()
   if (runSystem) {
     if (millis() > pidTime)
     {
-      Input = therm.getTemp();
+      Input = f_ReadTemp_ThABC(thermistorPin, REFERENCE_RESISTANCE, TA1, TB1, TC1);
       myPID.Compute();
       analogWrite(heaterPin, Output);
       analogWrite(heaterPinAlt, Output);
@@ -110,7 +110,7 @@ void pidTune() {
     milliseconds = millis();
 
     // Get input value here (temperature, encoder position, velocity, etc)
-    Input = therm.getTemp();
+    Input = f_ReadTemp_ThABC(thermistorPin, REFERENCE_RESISTANCE, TA1, TB1, TC1);
 
     // Call tunePID() with the input value and current time in milliseconds
     double output = tuner.tunePID(Input, milliseconds);
@@ -166,7 +166,7 @@ void pidTune() {
 //  milliseconds = millis();
 //
 //  // Get input value here (temperature, encoder position, velocity, etc)
-//  Input = therm.getTemp();
+//  Input = f_ReadTemp_ThABC(thermistorPin, REFERENCE_RESISTANCE, TA1, TB1, TC1);
 //
 //  // Call tunePID() with the input value and current time in milliseconds
 //  double output = tuner.tunePID(Input, milliseconds);

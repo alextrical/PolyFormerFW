@@ -16,7 +16,7 @@ void SerialLoop() {
     SerialReceive();
     SerialSend();
     serialTime += 1000;
-    menuActualTemp.setFloatValue(therm.getTemp());
+    menuActualTemp.setFloatValue(f_ReadTemp_ThABC(thermistorPin, REFERENCE_RESISTANCE, TA1, TB1, TC1));
   }
 }
 
@@ -32,7 +32,7 @@ void SerialSend()
     Serial.println(menuSettingsGearboxMicrosteps.getCurrentValue());
     Serial.println(menuSettingsGearboxMotorCurrent.getCurrentValue());
 
-    Serial.println(therm.getTemp());
+    Serial.println(f_ReadTemp_ThABC(thermistorPin, REFERENCE_RESISTANCE, TA1, TB1, TC1));
     updateStepperDisplay();
 
     // Serial.print("0 ");
