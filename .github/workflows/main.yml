@@ -5,6 +5,8 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v3
@@ -21,11 +23,7 @@ jobs:
         run: pip install --upgrade platformio
 
       - name: Build PlatformIO Project
-        run: pio run --environment btt_ebb42_v1_1
-
-      - name: "Build & test"
-        run: |
-          echo "done!"
+        run: pio run
           
   # The release job only runs when you push a tag starting with "v", e.g. v1.0.0 
   release:
