@@ -35,8 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Upload release
-        uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@v1.10.0
         with:
           artifacts: .pio/build/btt_ebb42_v1_1/firmware.bin
-          token: ${{ secrets.PUBLISH_TOKEN }}
           generateReleaseNotes: true
