@@ -35,5 +35,6 @@ jobs:
       - name: Upload release
         uses: ncipollo/release-action@v1.10.0
         with:
-          artifacts: .pio/build/btt_ebb42_v1_1/firmware.bin
+          artifacts: "*/*/*/*.bin,*/*/*.bin,*/*.bin"
+          allowUpdates: true
           generateReleaseNotes: true
