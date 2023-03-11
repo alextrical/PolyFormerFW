@@ -16,7 +16,8 @@
 const  ConnectorLocalInfo applicationInfo = { "PolyFormer", "fddaa423-cb5c-4024-8f67-a9742f4457f3" };
 IoAbstractionRef ioexp_IO = ioFrom8574(0x20, -1);
 ArduinoEEPROMAbstraction glArduinoEeprom(&EEPROM);
-U8G2_SSD1306_128X64_NONAME_F_HW_I2C gfx(U8G2_R2, U8X8_PIN_NONE, U8X8_PIN_NONE, U8X8_PIN_NONE);
+U8G2_SSD1309_128X64_NONAME0_F_HW_I2C gfx(U8G2_R2, U8X8_PIN_NONE, U8X8_PIN_NONE, U8X8_PIN_NONE);
+// U8G2_SSD1306_128X64_NONAME_F_HW_I2C gfx(U8G2_R2, U8X8_PIN_NONE, U8X8_PIN_NONE, U8X8_PIN_NONE);
 // U8G2_SH1106_128X64_NONAME_F_HW_I2C gfx(U8G2_R2, /* reset=*/ U8X8_PIN_NONE);
 U8g2Drawable gfxDrawable(&gfx, &Wire);
 GraphicsDeviceRenderer renderer(30, applicationInfo.name, &gfxDrawable);

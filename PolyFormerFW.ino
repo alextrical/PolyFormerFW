@@ -24,7 +24,7 @@ const char pgmTuning[] PROGMEM = "Tuning PID";
 #define NOMINAL_TEMPERATURE    25
 #define B_VALUE                4388 //104GT-2 alternative //4267 //104GT-2         //3950 //B3950
 
-#define fwVersion              0.16
+#define fwVersion              0.19
 
 //System Variables
 int error = 0; //Start with a clean sheet and no error /* 0=no error; 1=Heater decoupled during rising; 2=Heater decoupled during hold; 10=Over Temp; 11=Thermistor short; 12=No thermistor */
@@ -39,6 +39,7 @@ void setup() {
   Wire.setSDA(SDAPin);
   Wire.setSCL(SCLPin);
   Wire.begin();
+  // Wire.setClock(400000); //Optional - set I2C SCL to High Speed Mode of 400kHz
 
   // This is added by tcMenu Designer automatically during the first setup.
   setupMenu();
