@@ -39,7 +39,7 @@ void setup() {
   Wire.setSDA(SDAPin);
   Wire.setSCL(SCLPin);
   Wire.begin();
-  // Wire.setClock(400000); //Optional - set I2C SCL to High Speed Mode of 400kHz
+  Wire.setClock(400000); //Optional - set I2C SCL to High Speed Mode of 400kHz
 
   // This is added by tcMenu Designer automatically during the first setup.
   setupMenu();
