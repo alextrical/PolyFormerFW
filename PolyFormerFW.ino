@@ -24,14 +24,24 @@ const char pgmTuning[] PROGMEM = "Tuning PID";
 #define NOMINAL_TEMPERATURE    25
 #define B_VALUE                4388 //104GT-2 alternative //4267 //104GT-2         //3950 //B3950
 
-#define fwVersion              0.19
+#define fwVersion              0.20
 
 //System Variables
 int error = 0; //Start with a clean sheet and no error /* 0=no error; 1=Heater decoupled during rising; 2=Heater decoupled during hold; 10=Over Temp; 11=Thermistor short; 12=No thermistor */
 bool runSystem = false;
+bool runMotor = false;
 bool pidTuneRun = false;
 double Setpoint;
 
+// Polypen
+// Variables will change:
+int ledState = HIGH;        // the current state of the output pin
+int buttonState;            // the current reading from the input pin
+int lastButtonState = LOW;  // the previous reading from the input pin
+// the following variables are unsigned longs because the time, measured in
+// milliseconds, will quickly become a bigger number than can be stored in an int.
+unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
+unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
 
 
 void setup() {
@@ -62,6 +72,44 @@ void loop() {
   //  }else{
   pidLoop();
   //  }
+
+
+  //Polypen magic
+  // read the state of the switch into a local variable:
+  int reading = digitalRead(buttonA);
+
+  // check to see if you just pressed the button
+  // (i.e. the input went from LOW to HIGH), and you've waited long enough
+  // since the last press to ignore any noise:
+
+  // If the switch changed, due to noise or pressing:
+  if (reading != lastButtonState) {
+    // reset the debouncing timer
+    lastDebounceTime = millis();
+  }
+
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    // whatever the reading is at, it's been there for longer than the debounce
+    // delay, so take it as the actual current state:
+
+    // if the button state has changed:
+    if (reading != buttonState) {
+      buttonState = reading;
+
+      // only run the motor if the new button state is LOW
+      if (buttonState == HIGH) {
+        runMotor = false;
+        stepperSppeed();
+      } else {
+        runMotor = true;
+        stepperSppeed();
+      }
+    }
+  }
+
+  // save the reading. Next time through the loop, it'll be the lastButtonState:
+  lastButtonState = reading;
+
 }
 
 

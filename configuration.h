@@ -27,6 +27,9 @@
 #define encB            PB7
 #define encSW           PB6
 
+#define buttonA         PB8
+#define buttonB         PB9
+
 /******************************************
 * Thermistor
 * Wiring: https://learn.adafruit.com/thermistor/using-a-thermistor
